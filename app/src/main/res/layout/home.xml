@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:layout_width="292dp"
+            android:layout_height="67dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/dust"></ImageView>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants">
+
+
+            <TextView
+                android:layout_width="292dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/dream5"
+                android:text="Dump It! 사용방법"
+                android:textColor="#5C684F"
+                android:textSize="20dp"></TextView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="292dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/dream5"
+                    android:text="폐건전지 올바르게 버리는 방법"
+                    android:textColor="#5C684F"
+                    android:textSize="20dp"></TextView>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/home1"></ImageView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="292dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/dream5"
+                    android:text="폐형광등 올바르게 버리는 방법"
+                    android:textColor="#5C684F"
+                    android:textSize="20dp"></TextView>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/home2"></ImageView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="292dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/dream5"
+                    android:text="폐의약품 올바르게 버리는 방법"
+                    android:textColor="#5C684F"
+                    android:textSize="20dp"></TextView>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/home3"></ImageView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
