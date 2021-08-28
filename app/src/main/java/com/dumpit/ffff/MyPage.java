@@ -158,8 +158,8 @@ public class MyPage extends Fragment {
 
             }
         });
-        tempim = (ImageView) viewGroup.findViewById(R.id.tempim);
-        updateFirebase();
+//        tempim = (ImageView) viewGroup.findViewById(R.id.tempim);
+//        updateFirebase();
         return viewGroup;
     }
     public void updateFirebase() {
