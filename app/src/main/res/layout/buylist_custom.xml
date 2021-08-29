@@ -19,7 +19,7 @@
             android:fontFamily="@font/dream5"
             android:text="구매상품이름"
             android:textColor="#628364"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/buytime"
@@ -51,7 +51,7 @@
                 android:fontFamily="@font/dream5"
                 android:text="구매금액"
                 android:textColor="#628364"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -60,7 +60,7 @@
                 android:fontFamily="@font/dream5"
                 android:text="P"
                 android:textColor="#628364"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
