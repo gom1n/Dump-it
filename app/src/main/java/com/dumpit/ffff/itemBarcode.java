@@ -86,7 +86,9 @@ public class itemBarcode extends AppCompatActivity {
         storageRef.child("itemBarcode/tempImage.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) { //성공시
-                Glide.with(itemBarcode.this).load(uri).into(itemBarcode);
+                Glide.with(itemBarcode.this).load(uri)
+                        .error(R.drawable.loading)
+                        .into(itemBarcode);
             } }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
