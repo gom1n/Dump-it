@@ -154,22 +154,6 @@ public class MarketItemClick extends AppCompatActivity {
                     //날짜 및 시간 형식 지정
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String time = simpleDateFormat.format(System.currentTimeMillis());
-                    // users - [id] - marketHistory - [시간] - [아이템] 형식으로 파베 저장
-                    mReference.child("users").child(id).child("Totalpoint").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            point = (int) dataSnapshot.getValue(Integer.class);
-                            int p = point - itemP;
-                            Toast.makeText(getApplicationContext(), "결제완료! 잔액:" + p + "원", Toast.LENGTH_SHORT).show();
-                            mReference.child("users").child(id).child("marketHistory").child(time).setValue(new BuyItem(itemN, itemP, p, time));
-                            mReference.child("users").child(id).child("Totalpoint").setValue(p);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                     mReference.child("MarketItems").child(itemN).child("count").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,7 +167,28 @@ public class MarketItemClick extends AppCompatActivity {
 
                         }
                     });
-                    onBackPressed();
+                    // users - [id] - marketHistory - [시간] - [아이템] 형식으로 파베 저장
+                    mReference.child("users").child(id).child("Totalpoint").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            point = (int) dataSnapshot.getValue(Integer.class);
+                            int p = point - itemP;
+                            Toast.makeText(getApplicationContext(), "결제완료! 잔액:" + p + "원", Toast.LENGTH_SHORT).show();
+                            mReference.child("users").child(id).child("marketHistory").child(time).setValue(new BuyItem(itemN, itemP, p, time));
+                            mReference.child("users").child(id).child("Totalpoint").setValue(p);
+                            Intent intent2 = new Intent(getApplicationContext(), itemBarcode.class);
+                            intent2.putExtra("name", itemN);
+                            intent2.putExtra("price", itemP);
+                            intent2.putExtra("afterPoint", p);
+                            intent2.putExtra("buyTime", time);
+                            startActivity(intent2);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 else
                     Toast.makeText(getApplicationContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
