@@ -41,12 +41,12 @@ public class itemBarcode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_barcode);
 
-        //storage 객체 만들고 참조
-        storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
-        storageRef = storage.getReference();//스토리지를 참조한다
+//        //storage 객체 만들고 참조
+//        storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+//        storageRef = storage.getReference();//스토리지를 참조한다
 
         itemBarcode = (ImageView) findViewById(R.id.itemBarcode);
-        getFireBaseProfileImage();
+        downloadImg();
 
         Intent intent = getIntent();
         String itemN = intent.getStringExtra("name");
@@ -62,7 +62,6 @@ public class itemBarcode extends AppCompatActivity {
         BuyTime.setText(buyTime);
         buyAfterPoint = (TextView) findViewById(R.id.barcodeAP);
         buyAfterPoint.setText(afterPoint+"P");
-
 
     }
 
