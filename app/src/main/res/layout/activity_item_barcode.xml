@@ -13,17 +13,104 @@
         android:layout_weight="0"
         android:fontFamily="@font/dream5"
         android:gravity="center"
-        android:text="구매 완료"
+        android:text="주문 완료"
         android:textColor="#5C684F"
         android:textSize="30dp"></TextView>
 
-    <ImageView
-        android:id="@+id/itemBarcode"
-        android:layout_width="245dp"
-        android:layout_height="259dp"
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/dream5"
+        android:text="주문이 완료되었습니다." />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:layout_weight="0"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="125dp">
+
+            <TextView
+                android:id="@+id/nim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/name"
+                android:fontFamily="@font/dream5"
+                android:text="주문번호"
+                android:textColor="#8CA176"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp"></TextView>
+
+            <TextView
+                android:id="@+id/barcodeON"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/dream5"
+                android:textAlignment="textEnd"
+                android:layout_marginLeft="30dp"
+                android:textColor="#8CA176"
+                android:gravity="center"
+                tools:ignore="RtlCompat"></TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="125dp">
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/name"
+                android:fontFamily="@font/dream5"
+                android:text="주문시각"
+                android:textColor="#8CA176"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp"></TextView>
+
+            <TextView
+                android:id="@+id/barcodeT"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:textSize="10sp"
+                android:fontFamily="@font/dream5"
+                android:textAlignment="textEnd"
+                android:layout_marginLeft="30dp"
+                android:textColor="#8CA176"
+                android:gravity="center"
+                tools:ignore="RtlCompat"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="#5C684F"
+        android:fontFamily="@font/dream5"
+        android:text="결제 정보" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,25 +119,32 @@
         android:layout_weight="0"
         android:orientation="vertical">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0">
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/dream5"
-                android:text="거래상품" />
+
 
             <TextView
-                android:id="@+id/barcodeN"
+                android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="상품 이름" />
+                android:layout_weight="0"
+                android:fontFamily="@font/dream5"
+                android:text="구매자" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/barcodeU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="사용자이름" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,41 +154,23 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:fontFamily="@font/dream5"
-                android:text="거래 가격" />
+                android:text="총 상품 금액" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/barcodeP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:text="상품가격" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/dream5"
-                android:text="거래 시간" />
-
-            <TextView
-                android:id="@+id/barcodeT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="상품구매시각" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,18 +183,98 @@
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:fontFamily="@font/dream5"
                 android:text="잔액" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/barcodeAP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:text="잔액" />
         </LinearLayout>
 
     </LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="#5C684F"
+        android:fontFamily="@font/dream5"
+        android:text="주문 정보" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="0"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+
+            <ImageView
+                android:id="@+id/itemBarcode"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/dream5"
+                android:text="상품" />
+
+            <TextView
+                android:id="@+id/barcodeN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="상품이름" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gradient" />
+    <Button
+        android:id="@+id/go_shopping"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edge"
+        android:fontFamily="@font/dream5"
+        android:text="계속 쇼핑하기"
+        app:backgroundTint="#C2D5B0" />
+
+
 
 </LinearLayout>

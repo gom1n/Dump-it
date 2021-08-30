@@ -28,10 +28,9 @@ import jxl.Workbook;
 
 public class Map extends Fragment {
     MapView sView = null;
-    SQLiteDatabase db;
-    DatabaseHelper dh;
     ArrayList<PlaceData> mapList = new ArrayList<PlaceData>();
     PlaceAdapter placeAdapter;
+    TextView placeNum;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +39,8 @@ public class Map extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.mapList);
         placeAdapter = new PlaceAdapter(this.getContext(), mapList);
         listView.setAdapter(placeAdapter);
+
+        placeNum = (TextView) view.findViewById(R.id.placeNum);
 
         readExcel();
 
@@ -56,29 +57,6 @@ public class Map extends Fragment {
 
             }
         });
-
-
-//        Button b1 = (Button) view.findViewById(R.id.m1);
-//        b1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getChildFragmentManager().beginTransaction().replace(R.id.s_map, new Map1()).commit();
-//            }
-//        });
-//        Button b2 = (Button) view.findViewById(R.id.m2);
-//        b2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getChildFragmentManager().beginTransaction().replace(R.id.s_map, new Map2()).commit();
-//            }
-//        });
-//        Button b3 = (Button) view.findViewById(R.id.m3);
-//        b3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getChildFragmentManager().beginTransaction().replace(R.id.s_map, new Map3()).commit();
-//            }
-//        });
 
         return view;
     }
@@ -98,20 +76,22 @@ public class Map extends Fragment {
                     int rowIndexStart = 1;                  // row 인덱스 시작
                     int rowTotal = sheet.getColumn(colTotal-1).length;
 
-                    StringBuilder sb;
+                    int count = 0;
                     for(int row=rowIndexStart;row<rowTotal;row++) {
-                        sb = new StringBuilder();
                         String placeName="";
                         String placeAddress="";
                         String placeTel="";
                         //col: 컬럼순서, contents: 데이터값
                         for(int col=0; col < colTotal; col++) {
-                            if(col==1) placeName = sheet.getCell(col, row).getContents();
-                            if(col==3) placeAddress = sheet.getCell(col, row).getContents();
-                            if(col==4) placeTel = sheet.getCell(col, row).getContents();
+                            if(col==0) placeName = sheet.getCell(col, row).getContents();
+                            if(col==1) placeAddress = sheet.getCell(col, row).getContents();
+                            if(col==2) placeTel = sheet.getCell(col, row).getContents();
+                            if(sheet.getCell(col, row).getContents() == null) continue;
                         }
                         mapList.add(new PlaceData(placeName, placeAddress, placeTel));
+                        count++;
                     }
+                    placeNum.setText(count+"");
                 }
             }
         }catch(Exception e){

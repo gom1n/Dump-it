@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="what">
+        <item>선택</item>
+        <item>폐의약품</item>
+        <item>폐건전지</item>
+        <item>폐형광등</item>
+    </string-array>
+    <string-array name="where">
+        <item>선택</item>
+        <item>인천 강화군</item>
+        <item>광주광역시</item>
+    </string-array>
+</resources>
