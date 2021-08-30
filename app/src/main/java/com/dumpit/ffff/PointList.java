@@ -1,7 +1,12 @@
 package com.dumpit.ffff;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,8 +33,8 @@ public class PointList extends AppCompatActivity {
     FirebaseUser user;
     private TextView totalp;
     private ListView listView;
-    private ArrayAdapter<String> adapter;
-    List<Object> Array = new ArrayList<Object>();
+    PointAdapter adapter;
+    ArrayList<PointData> pointList = new ArrayList<PointData>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +57,7 @@ public class PointList extends AppCompatActivity {
         DatabaseReference points = databaseReference.child(id+"_"+website).child("Totalpoint");
         DatabaseReference data = databaseReference.child(id+"_"+website).child("point");
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>());
+        adapter = new PointAdapter(this, pointList);
         listView.setAdapter(adapter);
 
 
@@ -73,18 +78,14 @@ public class PointList extends AppCompatActivity {
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot){
-
-
                for(DataSnapshot snaps : snapshot.getChildren()) {
                    String date = snaps.getKey().toString();
                    String point = snaps.getValue().toString();
 
-                   Array.add(date + " " + point);
-                   adapter.add(date + " " +point);
+                   pointList.add(new PointData(date, point));
                }
-
-                adapter.notifyDataSetChanged();
-               listView.setSelection(adapter.getCount()-1);
+               adapter.notifyDataSetChanged();
+//               listView.setSelection(adapter.getCount()-1);
             }
 
             @Override
@@ -94,7 +95,75 @@ public class PointList extends AppCompatActivity {
 
         });
     }
+}
+
+// 포인트적립 데이터 담기
+class PointData {
+    String time;
+    String pointData;
+
+    // Generate > Constructor
+    public PointData() {}
+    public PointData(String time, String pointData) {
+        this.time = time;
+        this.pointData = pointData;
+    }
+
+    // Generate > Getter and Setter
+    public String getTime() {
+        return this.time;
+    }
+    public String getPointData() { return this.pointData; }
 
 
+    // Generate > toString() : 아이템을 문자열로 출력
+    @Override
+    public String toString() {
+        return "PointData{" +
+                "time='" + time + '\'' +
+                ", pointData='" + pointData + '\'' +
+                '}';
+    }
+}
+class PointAdapter extends BaseAdapter {
+    private ArrayList<PointData> items = new ArrayList<PointData>();
+    Context mContext = null;
+    LayoutInflater mLayoutInflater = null;
+
+    TextView pointTime;
+    TextView pointD;
+
+    public PointAdapter() {}
+    public PointAdapter(Context context, ArrayList<PointData> dataArray) {
+        mContext = context;
+        items = dataArray;
+        mLayoutInflater = LayoutInflater.from(mContext);
+    }
+    @Override
+    public int getCount() {
+        return items.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public PointData getItem(int position) {
+        return items.get(position);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = mLayoutInflater.inflate(R.layout.point_list_custom, null);
+
+        pointTime = (TextView) view.findViewById(R.id.PointTime);
+        pointTime.setText(items.get(position).getTime());
+        pointD = (TextView) view.findViewById(R.id.pointD);
+        pointD.setText(items.get(position).getPointData());
+
+        return view;
+    }
 
 }
