@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -26,26 +35,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class itemBarcode extends AppCompatActivity {
-    //파이어베이스 storage
-    FirebaseStorage storage;
-    StorageReference storageRef;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
     ImageView itemBarcode;
     TextView itemName;
     TextView itemPrice;
     TextView BuyTime;
     TextView buyAfterPoint;
+    TextView buyUser;
+    Button go_shopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_barcode);
 
-//        //storage 객체 만들고 참조
-//        storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
-//        storageRef = storage.getReference();//스토리지를 참조한다
-
         itemBarcode = (ImageView) findViewById(R.id.itemBarcode);
+        buyUser = (TextView) findViewById(R.id.barcodeU);
+
         downloadImg();
 
         Intent intent = getIntent();
@@ -62,6 +72,38 @@ public class itemBarcode extends AppCompatActivity {
         BuyTime.setText(buyTime);
         buyAfterPoint = (TextView) findViewById(R.id.barcodeAP);
         buyAfterPoint.setText(afterPoint+"P");
+
+        // Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String email = user.getEmail();
+                int index = email.indexOf("@");
+                String id = email.substring(0, index);
+                String web = email.substring(index+1);
+                int webidx = web.indexOf(".");
+                String website = web.substring(0, webidx);
+                String getname = snapshot.child("users").child(id+"_"+website).child("nickname").getValue(String.class);
+                buyUser.setText(getname);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        go_shopping = (Button) findViewById(R.id.go_shopping);
+        go_shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 

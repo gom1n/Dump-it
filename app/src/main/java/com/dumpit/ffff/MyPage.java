@@ -47,7 +47,6 @@ public class MyPage extends Fragment {
     TextView point;
     TextView pointtxt;
     TextView storetxt;
-    ImageView tempim;
 
     @Nullable
     @Override
