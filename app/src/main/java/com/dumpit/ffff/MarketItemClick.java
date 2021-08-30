@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -85,7 +86,7 @@ public class MarketItemClick extends AppCompatActivity {
         Intent intent = getIntent();
         String itemN = intent.getStringExtra("name");
         int itemP = intent.getIntExtra("price", 0);
-        int itemI = intent.getIntExtra("image", 0);
+        String itemUri = intent.getStringExtra("imageURI");
 
         itemName = (TextView) findViewById(R.id.itemName);
         itemPrice = (TextView) findViewById(R.id.itemPrice);
@@ -99,7 +100,6 @@ public class MarketItemClick extends AppCompatActivity {
         itemName.setText(itemN);
         buybtn.setEnabled(false);
 
-        // soldout resID: 2131165384
         // 품절이면 soldout 사진표시
         isExist = false;
         mReference.child("MarketItems").child(itemN).child("count").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,7 +112,9 @@ public class MarketItemClick extends AppCompatActivity {
                     buybtn.setEnabled(false);
                 } else {
                     isExist = true;
-                    itemImage.setImageResource(itemI);
+                    Glide.with(MarketItemClick.this).load(itemUri)
+                            .error(R.drawable.loading)
+                            .into(itemImage);
                     itemPrice.setText(itemP + "P");
                 }
             }
@@ -246,46 +248,4 @@ public class MarketItemClick extends AppCompatActivity {
 
 
 
-class MarketItemView extends LinearLayout {
 
-    TextView textView;
-    TextView textView2;
-    ImageView imageView;
-
-    // Generate > Constructor
-
-    public MarketItemView(Context context) {
-        super(context);
-
-        init(context);
-    }
-
-    public MarketItemView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-
-        init(context);
-    }
-
-    // singer_item.xml을 inflation
-    private void init(Context context) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.market_item, this, true);
-
-        textView = (TextView) findViewById(R.id.textView);
-        textView2 = (TextView) findViewById(R.id.textView2);
-        imageView = (ImageView) findViewById(R.id.imageView);
-    }
-
-    public void setName(String name) {
-        textView.setText(name);
-    }
-
-    public void setPrice(int price) {
-        textView2.setText(price+"");
-    }
-
-    public void setImage(int resId) {
-        imageView.setImageResource(resId);
-    }
-
-}

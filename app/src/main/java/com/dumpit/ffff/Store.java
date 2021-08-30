@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +30,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +40,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -75,10 +84,9 @@ public class Store extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MarketItem item = (MarketItem) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), MarketItemClick.class);
-                intent.putExtra("image", item.getResId());
-//                System.out.println(item.getResId() +" ____");
                 intent.putExtra("name", item.getName());
                 intent.putExtra("price", item.getPrice());
+                intent.putExtra("imageURI", item.getUri());
                 startActivity(intent);
             }
         });
@@ -140,8 +148,8 @@ public class Store extends Fragment{
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String itemName = snapshot.getKey();
                     int itemPrice = snapshot.child("price").getValue(Integer.class);
-                    int itemResID = snapshot.child("image").getValue(Integer.class);
-                    marketItemArrayList.add(new MarketItem(itemName, itemPrice, itemResID));
+                    String itemUri = snapshot.child("imageURI").getValue(String.class);
+                    marketItemArrayList.add(new MarketItem(itemName, itemPrice, itemUri));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -150,6 +158,25 @@ public class Store extends Fragment{
 
             }
         });
+
+//        FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
+//        // 다운로드는 주소를 넣는다.
+//        StorageReference storageRef = storage.getReference();//스토리지를 참조한다
+//        for(int i=1;i<9;i++) {
+//            int a = i;
+//            storageRef.child("marketItems/m" + i + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) { //성공시
+//                    System.out.println(uri.toString());
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    //실패시
+//                    Toast.makeText(getContext(), "진입실패.", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
     }
 }
 
@@ -157,13 +184,13 @@ public class Store extends Fragment{
 class MarketItem {
     String name;
     int price;
-    int resId;
+    String uri;
 
     // Generate > Constructor
-    public MarketItem(String name, int price, int resId) {
+    public MarketItem(String name, int price,  String uri) {
         this.name = name;
         this.price = price;
-        this.resId = resId;
+        this.uri = uri;
     }
 
     // Generate > Getter and Setter
@@ -183,12 +210,12 @@ class MarketItem {
         this.price = price;
     }
 
-    public int getResId() {
-        return resId;
+    public String getUri() {
+        return uri;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     // Generate > toString() : 아이템을 문자열로 출력
@@ -198,6 +225,7 @@ class MarketItem {
         return "MarketItem{" +
                 "name='" + name + '\'' +
                 ", price='" + price + '\'' +
+                ", imageURI='" + uri + '\'' +
                 '}';
     }
 }
@@ -244,10 +272,56 @@ class MarketAdapter extends BaseAdapter {
 
         view.setName(item.getName());
         view.setPrice(item.getPrice());
-        view.setImage(item.getResId());
+        view.setImage(item.getUri());
 
 
         return view;
     }
+}
+class MarketItemView extends LinearLayout {
+
+    TextView textView;
+    TextView textView2;
+    ImageView imageView;
+
+    // Generate > Constructor
+
+    public MarketItemView(Context context) {
+        super(context);
+
+        init(context);
+    }
+
+    public MarketItemView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+
+        init(context);
+    }
+
+    // singer_item.xml을 inflation
+    private void init(Context context) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.market_item, this, true);
+
+        textView = (TextView) findViewById(R.id.textView);
+        textView2 = (TextView) findViewById(R.id.textView2);
+        imageView = (ImageView) findViewById(R.id.imageView);
+    }
+
+    public void setName(String name) {
+        textView.setText(name);
+    }
+
+    public void setPrice(int price) {
+        textView2.setText(price+"");
+    }
+
+    public void setImage(String uri) {
+//        imageView.setImageResource(Uri a);
+        Glide.with(getContext()).load(uri)
+                .error(R.drawable.loading)
+                .into(imageView);
+    }
+
 }
 
