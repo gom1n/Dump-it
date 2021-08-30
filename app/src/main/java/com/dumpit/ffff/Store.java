@@ -115,9 +115,7 @@ public class Store extends Fragment{
     }
 
     public void search(String charText){
-
         marketItemArrayList.clear();
-
         if(charText.length() == 0){
             marketItemArrayList.clear();
             marketItemArrayList.addAll(arraylist);
@@ -159,24 +157,6 @@ public class Store extends Fragment{
             }
         });
 
-//        FirebaseStorage storage = FirebaseStorage.getInstance(); //스토리지 인스턴스를 만들고,
-//        // 다운로드는 주소를 넣는다.
-//        StorageReference storageRef = storage.getReference();//스토리지를 참조한다
-//        for(int i=1;i<9;i++) {
-//            int a = i;
-//            storageRef.child("marketItems/m" + i + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) { //성공시
-//                    System.out.println(uri.toString());
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    //실패시
-//                    Toast.makeText(getContext(), "진입실패.", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }
     }
 }
 
@@ -219,7 +199,6 @@ class MarketItem {
     }
 
     // Generate > toString() : 아이템을 문자열로 출력
-
     @Override
     public String toString() {
         return "MarketItem{" +
@@ -285,7 +264,6 @@ class MarketItemView extends LinearLayout {
     ImageView imageView;
 
     // Generate > Constructor
-
     public MarketItemView(Context context) {
         super(context);
 

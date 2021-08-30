@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,8 +32,11 @@ import jxl.Workbook;
 public class Map extends Fragment {
     MapView sView = null;
     ArrayList<PlaceData> mapList = new ArrayList<PlaceData>();
+    private ArrayList<PlaceData> arraylist = new ArrayList<PlaceData>();
     PlaceAdapter placeAdapter;
+
     TextView placeNum;
+    EditText placeSearch;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,9 +47,9 @@ public class Map extends Fragment {
         listView.setAdapter(placeAdapter);
 
         placeNum = (TextView) view.findViewById(R.id.placeNum);
+        placeSearch = (EditText) view.findViewById(R.id.placeSearch);
 
         readExcel();
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,8 +63,38 @@ public class Map extends Fragment {
 
             }
         });
+        arraylist.addAll(mapList);
+        placeSearch.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
 
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable){
+                String text = placeSearch.getText().toString();
+                search(text);
+            }
+        });
         return view;
+    }
+    public void search(String charText){
+        mapList.clear();
+        if(charText.length() == 0){
+            mapList.clear();
+            mapList.addAll(arraylist);
+        }
+        else{
+            for(int i = 0; i < arraylist.size(); i++){
+                if(arraylist.get(i).getPlaceName().toLowerCase().contains(charText)){
+                    mapList.add(arraylist.get(i));
+                }
+            }
+        }
+        placeAdapter.notifyDataSetChanged();
     }
     public void readExcel() {
         try {
