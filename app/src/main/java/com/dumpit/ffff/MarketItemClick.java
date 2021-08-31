@@ -1,11 +1,13 @@
 package com.dumpit.ffff;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -13,6 +15,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +37,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kakao.plusfriend.PlusFriendService;
+import com.kakao.util.exception.KakaoException;
 
 import java.text.SimpleDateFormat;
 
@@ -57,6 +62,7 @@ public class MarketItemClick extends AppCompatActivity {
     boolean isExist;
     boolean canBuy;
     boolean isLove;
+    Dialog dialog;
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
@@ -99,6 +105,10 @@ public class MarketItemClick extends AppCompatActivity {
 
         itemName.setText(itemN);
         buybtn.setEnabled(false);
+
+        dialog = new Dialog(MarketItemClick.this);       // Dialog 초기화
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+        dialog.setContentView(R.layout.custom_buy_dialog);             // xml 레이아웃 파일과 연결
 
         // 품절이면 soldout 사진표시
         isExist = false;
@@ -152,46 +162,8 @@ public class MarketItemClick extends AppCompatActivity {
         buybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(canBuy) {
-                    //날짜 및 시간 형식 지정
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String time = simpleDateFormat.format(System.currentTimeMillis());
-                    mReference.child("MarketItems").child(itemN).child("count").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int count = (int) dataSnapshot.getValue(Integer.class);
-                            count--;
-                            mReference.child("MarketItems").child(itemN).child("count").setValue(count);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                    // users - [id] - marketHistory - [시간] - [아이템] 형식으로 파베 저장
-                    mReference.child("users").child(id).child("Totalpoint").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            point = (int) dataSnapshot.getValue(Integer.class);
-                            int p = point - itemP;
-                            Toast.makeText(getApplicationContext(), "결제완료! 잔액:" + p + "원", Toast.LENGTH_SHORT).show();
-                            mReference.child("users").child(id).child("marketHistory").child(time).setValue(new BuyItem(itemN, itemP, p, time));
-                            mReference.child("users").child(id).child("Totalpoint").setValue(p);
-                            Intent intent2 = new Intent(getApplicationContext(), itemBarcode.class);
-                            intent2.putExtra("name", itemN);
-                            intent2.putExtra("price", itemP);
-                            intent2.putExtra("afterPoint", p);
-                            intent2.putExtra("buyTime", time);
-                            startActivity(intent2);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
+                if(canBuy)
+                    showDialog();
                 else
                     Toast.makeText(getApplicationContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
             }
@@ -241,6 +213,83 @@ public class MarketItemClick extends AppCompatActivity {
         });
 
 
+    }
+    // dialog을 디자인하는 함수
+    public void showDialog(){
+        dialog.show(); // 다이얼로그 띄우기
+
+        Intent intent = getIntent();
+        String itemN = intent.getStringExtra("name");
+        int itemP = intent.getIntExtra("price", 0);
+        String itemUri = intent.getStringExtra("imageURI");
+
+        EditText phoneN = dialog.findViewById(R.id.editTextPhone);
+        EditText e_mail = dialog.findViewById(R.id.editTextTextEmailAddress);
+
+        // ok 버튼
+        dialog.findViewById(R.id.okBut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNumber = phoneN.getText().toString();
+                String BuyEmail = phoneN.getText().toString();
+                // 카카오톡 채널로 메세지 보내기
+                try {
+                    PlusFriendService.getInstance().chat(getApplicationContext(), "632485");
+                    System.out.println("카톡...?");
+                } catch (KakaoException e) {
+                    // 에러 처리 (앱키 미설정 등등)
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                //날짜 및 시간 형식 지정
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time = simpleDateFormat.format(System.currentTimeMillis());
+                mReference.child("MarketItems").child(itemN).child("count").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int count = (int) dataSnapshot.getValue(Integer.class);
+                        count--;
+                        mReference.child("MarketItems").child(itemN).child("count").setValue(count);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                // users - [id] - marketHistory - [시간] - [아이템] 형식으로 파베 저장
+                mReference.child("users").child(id).child("Totalpoint").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        point = (int) dataSnapshot.getValue(Integer.class);
+                        int p = point - itemP;
+                        Toast.makeText(getApplicationContext(), "결제완료! 잔액:" + p + "원", Toast.LENGTH_SHORT).show();
+                        mReference.child("users").child(id).child("marketHistory").child(time).setValue(new BuyItem(itemN, itemP, p, time));
+                        mReference.child("users").child(id).child("Totalpoint").setValue(p);
+                        Intent intent2 = new Intent(getApplicationContext(), itemBarcode.class);
+                        intent2.putExtra("name", itemN);
+                        intent2.putExtra("price", itemP);
+                        intent2.putExtra("afterPoint", p);
+                        intent2.putExtra("buyTime", time);
+                        intent2.putExtra("imageURI",itemUri);
+                        startActivity(intent2);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+//                Intent tt = new Intent(getApplicationContext(), itemBarcode.class);
+//                startActivity(tt);
+            }
+        });
+        // 엑스 버튼
+        dialog.findViewById(R.id.close_dialog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss(); // 다이얼로그 닫기
+            }
+        });
     }
 
 
