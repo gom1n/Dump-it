@@ -26,6 +26,9 @@
         <activity android:name=".itemBarcode"/>
 
         <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="5978843b155f15c3823d6028951851d0" />
+        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
         <meta-data

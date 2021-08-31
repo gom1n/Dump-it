@@ -56,13 +56,14 @@ public class itemBarcode extends AppCompatActivity {
         itemBarcode = (ImageView) findViewById(R.id.itemBarcode);
         buyUser = (TextView) findViewById(R.id.barcodeU);
 
-        downloadImg();
+//        downloadImg();
 
         Intent intent = getIntent();
         String itemN = intent.getStringExtra("name");
         int itemP = intent.getIntExtra("price", 0);
         String buyTime = intent.getStringExtra("buyTime");
         int afterPoint = intent.getIntExtra("afterPoint", 0);
+        String imageUri = intent.getStringExtra("imageURI");
 
         itemName = (TextView) findViewById(R.id.barcodeN);
         itemName.setText(itemN);
@@ -72,6 +73,10 @@ public class itemBarcode extends AppCompatActivity {
         BuyTime.setText(buyTime);
         buyAfterPoint = (TextView) findViewById(R.id.barcodeAP);
         buyAfterPoint.setText(afterPoint+"P");
+
+        Glide.with(itemBarcode.this).load(imageUri)
+                .error(R.drawable.loading)
+                .into(itemBarcode);
 
         // Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
