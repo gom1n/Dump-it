@@ -88,7 +88,7 @@ public class Map extends Fragment {
                                 readExcel("eunpyeong_battery");
                             }
                         }
-                        // 검색기능
+                        // 검색기능(앱 내)
                         arraylist = new ArrayList<PlaceData>();
                         arraylist.addAll(mapList);
                         placeSearch.addTextChangedListener(new TextWatcher(){
