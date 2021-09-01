@@ -34,11 +34,12 @@
 
 
             <TextView
+                android:id="@+id/howToUse"
                 android:layout_width="292dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/dream5"
-                android:text="Dump It! 사용방법"
+                android:text="Dump It! 사용방법 >> 클릭!"
                 android:textColor="#5C684F"
                 android:textSize="20dp"></TextView>
 
