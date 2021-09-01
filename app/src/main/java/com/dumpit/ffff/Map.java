@@ -57,6 +57,7 @@ public class Map extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.spinner);
         spinner2 = (Spinner) view.findViewById(R.id.spinner2);
 
+        // 드롭다운 선택
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -84,6 +85,15 @@ public class Map extends Fragment {
                                 readExcel("kwangju_medicine");
                             }
                         }
+                        if(what.equals("폐건전지") || what.equals("폐형광등")) {
+                            if(where.equals("서울 성북구")) {
+                                mapList.clear();
+                                readExcel("seongbuk_battery");
+                            }else if(where.equals("서울 은평구")) {
+                                mapList.clear();
+                                readExcel("eunpyeong_battery");
+                            }
+                        }
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -94,8 +104,6 @@ public class Map extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
