@@ -31,9 +31,8 @@ import jxl.Workbook;
 
 
 public class Map extends Fragment {
-    MapView sView = null;
     ArrayList<PlaceData> mapList = new ArrayList<PlaceData>();
-    private ArrayList<PlaceData> arraylist = new ArrayList<PlaceData>();
+    private ArrayList<PlaceData> arraylist;
     PlaceAdapter placeAdapter;
 
     TextView placeNum;
@@ -57,13 +56,13 @@ public class Map extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.spinner);
         spinner2 = (Spinner) view.findViewById(R.id.spinner2);
 
+
         // 드롭다운 선택
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 what = parent.getItemAtPosition(position).toString();
                 if(what.equals("선택")) {
-                    placeNum.setText("0");
                     mapList.clear();
                     placeAdapter.notifyDataSetChanged();
                 }
@@ -72,28 +71,42 @@ public class Map extends Fragment {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         where = parent.getItemAtPosition(position).toString();
                         if(where.equals("선택")) {
-                            placeNum.setText("0");
                             mapList.clear();
                             placeAdapter.notifyDataSetChanged();
                         }
                         if(what.equals("폐의약품")) {
                             if(where.equals("인천 강화군")) {
-                                mapList.clear();
                                 readExcel("incheon_medicine");
                             }else if(where.equals("광주광역시")) {
-                                mapList.clear();
                                 readExcel("kwangju_medicine");
                             }
                         }
                         if(what.equals("폐건전지") || what.equals("폐형광등")) {
                             if(where.equals("서울 성북구")) {
-                                mapList.clear();
                                 readExcel("seongbuk_battery");
                             }else if(where.equals("서울 은평구")) {
-                                mapList.clear();
                                 readExcel("eunpyeong_battery");
                             }
                         }
+                        // 검색기능
+                        arraylist = new ArrayList<PlaceData>();
+                        arraylist.addAll(mapList);
+                        placeSearch.addTextChangedListener(new TextWatcher(){
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+                            }
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+                            }
+                            @Override
+                            public void afterTextChanged(Editable editable){
+                                String text = placeSearch.getText().toString();
+                                search(text);
+                                placeNum.setText(placeAdapter.getCount()+"");
+                            }
+                        });
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -104,7 +117,6 @@ public class Map extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,28 +130,11 @@ public class Map extends Fragment {
 
             }
         });
-        arraylist.addAll(mapList);
-        placeSearch.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-            }
-            @Override
-            public void afterTextChanged(Editable editable){
-                String text = placeSearch.getText().toString();
-                search(text);
-            }
-        });
         return view;
     }
     public void search(String charText){
         mapList.clear();
         if(charText.length() == 0){
-            mapList.clear();
             mapList.addAll(arraylist);
         }
         else{
@@ -155,19 +150,17 @@ public class Map extends Fragment {
         try {
             //파일읽기
             InputStream is = getActivity().getBaseContext().getResources().getAssets().open(filename+".xls");
-
             //엑셀파일
             Workbook wb = Workbook.getWorkbook(is);
-
             //엑셀파일이 있다면
             if(wb != null) {
+                mapList.clear();
                 Sheet sheet = wb.getSheet(0);   // 시트 불러오기
                 if(sheet != null) {
                     int colTotal = sheet.getColumns();    // 전체 컬럼
                     int rowIndexStart = 1;                  // row 인덱스 시작
                     int rowTotal = sheet.getColumn(colTotal-1).length;
 
-                    int count = 0;
                     for(int row=rowIndexStart;row<rowTotal;row++) {
                         String placeName="";
                         String placeAddress="";
@@ -180,10 +173,9 @@ public class Map extends Fragment {
                             if(sheet.getCell(col, row).getContents() == null) continue;
                         }
                         mapList.add(new PlaceData(placeName, placeAddress, placeTel));
-                        count++;
                     }
                     placeAdapter.notifyDataSetChanged();
-                    placeNum.setText(count+"");
+                    placeNum.setText(placeAdapter.getCount()+"");
                 }
             }
         }catch(Exception e){

@@ -91,33 +91,12 @@ public class Store extends Fragment{
             }
         });
 
-        arraylist = new ArrayList<MarketItem>();
-        arraylist.addAll(marketItemArrayList);
-        // 검색기능 (앱 내)
-        EditText searchView = (EditText) viewGroup.findViewById(R.id.searchView);
-        searchView.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
-
-            }
-            @Override
-            public void afterTextChanged(Editable editable){
-                String text = searchView.getText().toString();
-                search(text);
-            }
-        });
-
         return viewGroup;
     }
 
     public void search(String charText){
         marketItemArrayList.clear();
         if(charText.length() == 0){
-            marketItemArrayList.clear();
             marketItemArrayList.addAll(arraylist);
         }
         else{
@@ -149,6 +128,25 @@ public class Store extends Fragment{
                     String itemUri = snapshot.child("imageURI").getValue(String.class);
                     marketItemArrayList.add(new MarketItem(itemName, itemPrice, itemUri));
                     adapter.notifyDataSetChanged();
+                    arraylist = new ArrayList<MarketItem>();
+                    arraylist.addAll(marketItemArrayList);
+                    // 검색기능 (앱 내)
+                    EditText searchView = (EditText) viewGroup.findViewById(R.id.searchView);
+                    searchView.addTextChangedListener(new TextWatcher(){
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+                        }
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
+
+                        }
+                        @Override
+                        public void afterTextChanged(Editable editable){
+                            String text = searchView.getText().toString();
+                            search(text);
+                        }
+                    });
                 }
             }
             @Override
