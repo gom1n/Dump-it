@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ import com.kakao.util.exception.KakaoException;
 
 import java.text.SimpleDateFormat;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.exit;
 
 /*
@@ -231,10 +233,17 @@ public class MarketItemClick extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String phoneNumber = phoneN.getText().toString();
-                String BuyEmail = phoneN.getText().toString();
+                String BuyEmail = e_mail.getText().toString();
+                if(TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(BuyEmail)) {
+                    Toast.makeText(MarketItemClick.this, "전화번호와 이메일을 입력해주세요", LENGTH_SHORT).show();
+                    return;
+                } else {
+                    mReference.child("users").child(id).child("phoneNumber").setValue(phoneNumber);
+                    mReference.child("users").child(id).child("BuyEmail").setValue(BuyEmail);
+                }
                 // 카카오톡 채널로 메세지 보내기
                 try {
-                    PlusFriendService.getInstance().chat(getApplicationContext(), "632485");
+                    PlusFriendService.getInstance().chat(MarketItemClick.this, "632485");
                     System.out.println("카톡...?");
                 } catch (KakaoException e) {
                     // 에러 처리 (앱키 미설정 등등)
