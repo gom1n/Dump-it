@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,11 @@ public class Map extends Fragment {
 
     TextView placeNum;
     EditText placeSearch;
+    Spinner spinner;
+    Spinner spinner2;
+
+    String what;
+    String where;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,8 +54,49 @@ public class Map extends Fragment {
 
         placeNum = (TextView) view.findViewById(R.id.placeNum);
         placeSearch = (EditText) view.findViewById(R.id.placeSearch);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+        spinner2 = (Spinner) view.findViewById(R.id.spinner2);
 
-        readExcel();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                what = parent.getItemAtPosition(position).toString();
+                if(what.equals("선택")) {
+                    placeNum.setText("0");
+                    mapList.clear();
+                    placeAdapter.notifyDataSetChanged();
+                }
+                spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        where = parent.getItemAtPosition(position).toString();
+                        if(where.equals("선택")) {
+                            placeNum.setText("0");
+                            mapList.clear();
+                            placeAdapter.notifyDataSetChanged();
+                        }
+                        if(what.equals("폐의약품")) {
+                            if(where.equals("인천 강화군")) {
+                                mapList.clear();
+                                readExcel("incheon_medicine");
+                            }else if(where.equals("광주광역시")) {
+                                mapList.clear();
+                                readExcel("kwangju_medicine");
+                            }
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,10 +143,10 @@ public class Map extends Fragment {
         }
         placeAdapter.notifyDataSetChanged();
     }
-    public void readExcel() {
+    public void readExcel(String filename) {
         try {
             //파일읽기
-            InputStream is = getActivity().getBaseContext().getResources().getAssets().open("incheon_medicine.xls");
+            InputStream is = getActivity().getBaseContext().getResources().getAssets().open(filename+".xls");
 
             //엑셀파일
             Workbook wb = Workbook.getWorkbook(is);
@@ -127,6 +174,7 @@ public class Map extends Fragment {
                         mapList.add(new PlaceData(placeName, placeAddress, placeTel));
                         count++;
                     }
+                    placeAdapter.notifyDataSetChanged();
                     placeNum.setText(count+"");
                 }
             }

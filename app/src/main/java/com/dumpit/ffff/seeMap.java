@@ -77,7 +77,7 @@ public class seeMap extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onMapLoaded() {
                 mgoogleMap.moveCamera(CameraUpdateFactory.newLatLng(PLACE));
-                mgoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+                mgoogleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
             }
         }); // 구글맵 로딩이 완료되면 카메라 위치 조정
         googleMap.addMarker(markerOptions).showInfoWindow();
