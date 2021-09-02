@@ -3,11 +3,13 @@
     package="com.dumpit.ffff">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,31 +17,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dumpit">
-        <activity android:name=".UserInfo"></activity>
+        <activity android:name=".NoticePage"></activity>
+        <activity android:name=".Notice" />
+        <activity android:name=".UserInfo" />
         <activity android:name=".SignUp" />
         <activity android:name=".Login" />
-        <activity android:name=".CameraShot"/>
-        <activity android:name=".MarketItemClick"/>
-        <activity android:name=".BuyList"/>
-        <activity android:name=".PointList"/>
-        <activity android:name=".seeMap"/>
-        <activity android:name=".itemBarcode"/>
+        <activity android:name=".CameraShot" />
+        <activity android:name=".MarketItemClick" />
+        <activity android:name=".BuyList" />
+        <activity android:name=".PointList" />
+        <activity android:name=".seeMap" />
+        <activity android:name=".itemBarcode" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="5978843b155f15c3823d6028951851d0" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBcBlZcoRU0BwbuWRG3gnEY093r7fEeR_w" />
+
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

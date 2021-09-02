@@ -134,7 +134,7 @@ public class MyPage extends Fragment {
         layout02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent t = new Intent(Intent.ACTION_VIEW,Uri.parse("https://dumpit2021.blogspot.com/2021/06/blog-post_26.html"));
+                Intent t = new Intent(getContext(), Notice.class);
                 startActivity(t);
 
             }
