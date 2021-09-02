@@ -75,19 +75,12 @@ public class Map extends Fragment {
                             placeAdapter.notifyDataSetChanged();
                         }
                         if(what.equals("폐의약품")) {
-                            if(where.equals("인천 강화군")) {
-                                readExcel("incheon_medicine");
-                            }else if(where.equals("광주광역시")) {
-                                readExcel("kwangju_medicine");
-                            }
+                            readExcel(where+"_"+what);
                         }
-                        if(what.equals("폐건전지") || what.equals("폐형광등")) {
-                            if(where.equals("서울 성북구")) {
-                                readExcel("seongbuk_battery");
-                            }else if(where.equals("서울 은평구")) {
-                                readExcel("eunpyeong_battery");
-                            }
+                        if(what.equals("폐형광등/폐건전지")) {
+                            readExcel(where+"_폐형광등폐건전지");
                         }
+
                         // 검색기능(앱 내)
                         arraylist = new ArrayList<PlaceData>();
                         arraylist.addAll(mapList);
@@ -152,6 +145,7 @@ public class Map extends Fragment {
             InputStream is = getActivity().getBaseContext().getResources().getAssets().open(filename+".xls");
             //엑셀파일
             Workbook wb = Workbook.getWorkbook(is);
+
             //엑셀파일이 있다면
             if(wb != null) {
                 mapList.clear();
@@ -177,6 +171,9 @@ public class Map extends Fragment {
                     placeAdapter.notifyDataSetChanged();
                     placeNum.setText(placeAdapter.getCount()+"");
                 }
+            } else {
+                mapList.clear();
+                placeAdapter.notifyDataSetChanged();
             }
         }catch(Exception e){
             e.printStackTrace();

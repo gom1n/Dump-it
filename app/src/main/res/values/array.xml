@@ -3,14 +3,31 @@
     <string-array name="what">
         <item>선택</item>
         <item>폐의약품</item>
-        <item>폐건전지</item>
-        <item>폐형광등</item>
+        <item>폐형광등/폐건전지</item>
     </string-array>
     <string-array name="where">
         <item>선택</item>
-        <item>인천 강화군</item>
         <item>광주광역시</item>
-        <item>서울 성북구</item>
-        <item>서울 은평구</item>
+        <item>서울특별시 강남구</item>
+        <item>서울특별시 강서구</item>
+        <item>서울특별시 관악구</item>
+        <item>서울특별시 광진구</item>
+        <item>서울특별시 동대문구</item>
+        <item>서울특별시 동작구</item>
+        <item>서울특별시 마포구</item>
+        <item>서울특별시 서대문구</item>
+        <item>서울특별시 성동구</item>
+        <item>서울특별시 성북구</item>
+        <item>서울특별시 송파구</item>
+        <item>서울특별시 양천구</item>
+        <item>서울특별시 영등포구</item>
+        <item>서울특별시 용산구</item>
+        <item>서울특별시 은평구</item>
+        <item>서울특별시 중랑구</item>
+        <item>인천광역시 남동구</item>
+        <item>인천광역시 중구</item>
+        <item>인천 강화군</item>
+        <item>경기도 고양시</item>
+        <item>경기도 구리시</item>
     </string-array>
 </resources>
