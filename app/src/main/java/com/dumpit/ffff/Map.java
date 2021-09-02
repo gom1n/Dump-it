@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -43,6 +44,13 @@ public class Map extends Fragment {
     String what;
     String where;
 
+    String[] medicine = {"선택", "광주광역시","서울특별시 강서구","서울특별시 광진구","서울특별시 동대문구","서울특별시 마포구"
+            ,"서울특별시 서대문구","서울특별시 송파구","서울특별시 양천구","서울특별시 용산구","인천광역시 남동구",
+            "인천광역시 중구","인천 강화군","경기도 고양시","경기도 구리시"};
+    String[] batteryAndLight = {"선택", "서울특별시 강남구", "서울특별시 강서구", "서울특별시 관악구", "서울특별시 광진구", "서울특별시 동대문구",
+                            "서울특별시 동작구", "서울특별시 성동구", "서울특별시 성북구", "서울특별시 송파구", "서울특별시 양천구", "서울특별시 영등포구",
+                            "서울특별시 은평구", "서울특별시 중랑구"};
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.map , container, false);
@@ -57,6 +65,11 @@ public class Map extends Fragment {
         spinner2 = (Spinner) view.findViewById(R.id.spinner2);
 
 
+        ArrayAdapter<String> medicineAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, medicine);
+        medicineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> batteryAndLightAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, batteryAndLight);
+        batteryAndLightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // 드롭다운 선택
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -66,6 +79,8 @@ public class Map extends Fragment {
                     mapList.clear();
                     placeAdapter.notifyDataSetChanged();
                 }
+                if(what.equals("폐의약품")) spinner2.setAdapter(medicineAdapter);
+                if(what.equals("폐형광등/폐건전지")) spinner2.setAdapter(batteryAndLightAdapter);
                 spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -74,12 +89,10 @@ public class Map extends Fragment {
                             mapList.clear();
                             placeAdapter.notifyDataSetChanged();
                         }
-                        if(what.equals("폐의약품")) {
+                        if(what.equals("폐의약품"))
                             readExcel(where+"_"+what);
-                        }
-                        if(what.equals("폐형광등/폐건전지")) {
+                        if(what.equals("폐형광등/폐건전지"))
                             readExcel(where+"_폐형광등폐건전지");
-                        }
 
                         // 검색기능(앱 내)
                         arraylist = new ArrayList<PlaceData>();
