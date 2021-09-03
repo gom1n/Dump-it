@@ -222,6 +222,7 @@ public class CameraShot extends AppCompatActivity {
         @Override
         public void onPermissionDenied(ArrayList<String> deniedPermissions) {
             Toast.makeText(getApplicationContext(), "권한이 거부됨", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "카메라 촬영을 원하시면 설정->어플리케이션->dumpit에 들어가서\n 카메라 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
         }
     };
 
