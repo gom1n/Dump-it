@@ -8,6 +8,8 @@
     android:orientation="vertical"
     app:ignore="NamespaceTypo">
 
+
+
     <TextView
         android:layout_width="292dp"
         android:layout_height="67dp"

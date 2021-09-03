@@ -17,7 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import android.view.MenuItem;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -31,9 +32,9 @@ public class Home extends Fragment{
     ViewGroup viewGroup;
     Dialog dialog;
     TextView HowToUse;
-
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
@@ -44,6 +45,7 @@ public class Home extends Fragment{
         dialog.setContentView(R.layout.help_dialog);             // xml 레이아웃 파일과 연결
 
         HowToUse = (TextView) viewGroup.findViewById(R.id.howToUse);
+
         HowToUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -11,13 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import android.view.MenuItem;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+
 
 import java.io.ByteArrayOutputStream;
 
@@ -28,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     Store store;
     Map map;
     MyPage mypage;
-    private AdView mAdview; //애드뷰 변수 선언
 
 
     @Override
@@ -40,23 +35,6 @@ public class MainActivity extends AppCompatActivity {
         store = new Store();
         map = new Map();
         mypage = new MyPage();
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() { //광고 초기화
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdview = findViewById(R.id.adView); //배너광고 레이아웃 가져오기
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdview.loadAd(adRequest);
-        AdView adView = new AdView(this);
-
-        adView.setAdSize(AdSize.BANNER);
-
-        adView.setAdUnitId("ca-app-pub-5154428061719123~3749614809");
-
-
 
         //제일 처음 띄워줄 뷰를 세팅해줍니다. commit();까지 해줘야 합니다.
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, home).commitAllowingStateLoss();
