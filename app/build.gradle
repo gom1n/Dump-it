@@ -67,6 +67,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-//    implementation group: 'com.kakao.sdk', name: 'plusfriend', version: project.KAKAO_SDK_PLUS_VERSION
-    implementation 'com.kakao.sdk:plusfriend:+'
+    implementation group: 'com.kakao.sdk', name: 'kakaolink', version:project.KAKAO_SDK_VERSION
 }

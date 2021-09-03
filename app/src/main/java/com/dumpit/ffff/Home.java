@@ -22,7 +22,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.kakao.plusfriend.PlusFriendService;
 import com.kakao.util.exception.KakaoException;
 
 import java.security.MessageDigest;

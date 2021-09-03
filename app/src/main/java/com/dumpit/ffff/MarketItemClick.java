@@ -38,7 +38,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kakao.plusfriend.PlusFriendService;
+import com.kakao.message.template.ButtonObject;
+import com.kakao.message.template.ContentObject;
+import com.kakao.message.template.FeedTemplate;
+import com.kakao.message.template.LinkObject;
 import com.kakao.util.exception.KakaoException;
 
 import java.text.SimpleDateFormat;
@@ -242,13 +245,21 @@ public class MarketItemClick extends AppCompatActivity {
                     mReference.child("users").child(id).child("BuyEmail").setValue(BuyEmail);
                 }
                 // 카카오톡 채널로 메세지 보내기
-                try {
-                    PlusFriendService.getInstance().chat(MarketItemClick.this, "632485");
-                    System.out.println("카톡...?");
-                } catch (KakaoException e) {
-                    // 에러 처리 (앱키 미설정 등등)
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                FeedTemplate params = FeedTemplate
+                        .newBuilder(ContentObject.newBuilder("덤프잇",
+                                "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/191/791/81191791_1555664874860_1_600x600.JPG",
+                                LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+                                        .setMobileWebUrl("https://developers.kakao.com").build())
+                                .setDescrption("덤프잇?!")
+                                .build())
+                        .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl("https://developers.kakao.com").setMobileWebUrl("https://developers.kakao.com").build()))
+//                        .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+//                                .setWebUrl("https://developers.kakao.com")
+//                                .setMobileWebUrl("https://developers.kakao.com")
+//                                .setAndroidExecutionParams("key1=value1")
+//                                .setIosExecutionParams("key1=value1")
+//                                .build()))
+                        .build();
                 //날짜 및 시간 형식 지정
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simpleDateFormat.format(System.currentTimeMillis());
