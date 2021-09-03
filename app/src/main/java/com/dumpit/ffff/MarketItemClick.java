@@ -152,6 +152,17 @@ public class MarketItemClick extends AppCompatActivity {
                 point = (int) dataSnapshot.getValue(Integer.class);
                 if(point < itemP) canBuy = false;
                 myPoint.setText(point+"");
+
+                //구매버튼 클릭
+                buybtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(canBuy)
+                            showDialog();
+                        else
+                            Toast.makeText(getApplicationContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -169,16 +180,7 @@ public class MarketItemClick extends AppCompatActivity {
             }
         });
 
-        //구매버튼 클릭
-        buybtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(canBuy)
-                    showDialog();
-                else
-                    Toast.makeText(getApplicationContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         // 찜하기 기능
         mReference.child("users").child(id).child("zzim").addValueEventListener(new ValueEventListener() {
             @Override
@@ -276,6 +278,7 @@ public class MarketItemClick extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(KakaoLinkResponse result) {
+                        System.out.println("카톡성공!!");
                     }
                 });
                 //날짜 및 시간 형식 지정
