@@ -52,6 +52,9 @@ public class itemBarcode extends AppCompatActivity {
     Button go_shopping;
 
     boolean isBought;
+    String[] itemNameArray = {"누가바", "돼지바", "자일리톨", "츄파춥스", "호두마루", "체리마루", "지구젤리", "후라보노"};
+    String[] storageArray = {"who", "pig", "xylitol", "chu", "hodu", "cherry", "jelly", "hoo"};
+    String folderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,6 @@ public class itemBarcode extends AppCompatActivity {
 
         itemBarcode = (ImageView) findViewById(R.id.itemBarcode);
         buyUser = (TextView) findViewById(R.id.barcodeU);
-
-//        downloadImg();
 
         Intent intent = getIntent();
         String itemN = intent.getStringExtra("name");
@@ -108,9 +109,13 @@ public class itemBarcode extends AppCompatActivity {
             }
         });
 
+        for(int i=0; i<itemNameArray.length; i++) {
+            if(itemN.equals(itemNameArray[i]))
+                folderName = storageArray[i];
+        }
         // 아이템 바코드 추가
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference listRef = storage.getReference().child("itemBarcode");
+        StorageReference listRef = storage.getReference().child("itemBarcode/"+folderName);
         listRef.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override

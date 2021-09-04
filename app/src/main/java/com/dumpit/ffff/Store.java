@@ -122,7 +122,7 @@ public class Store extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String itemName = snapshot.getKey();
+                    String itemName = snapshot.child("name").getValue(String.class);
                     int itemPrice = snapshot.child("price").getValue(Integer.class);
                     String itemUri = snapshot.child("imageURI").getValue(String.class);
                     marketItemArrayList.add(new MarketItem(itemName, itemPrice, itemUri));
