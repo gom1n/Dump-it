@@ -36,7 +36,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/dream5"
             android:text="가격"
-            android:textColor="#5C684F"
+            android:textColor="@android:color/holo_green_dark"
             android:textSize="12sp" />
 
         <TextView

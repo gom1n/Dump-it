@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,6 +52,9 @@ import com.kakao.util.exception.KakaoException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.exit;
@@ -252,35 +256,15 @@ public class MarketItemClick extends AppCompatActivity {
                     mReference.child("users").child(id).child("phoneNumber").setValue(phoneNumber);
                     mReference.child("users").child(id).child("BuyEmail").setValue(BuyEmail);
                 }
-                // 카카오톡 채널로 메세지 보내기
-                FeedTemplate params = FeedTemplate
-                        .newBuilder(ContentObject.newBuilder("덤프잇",
-                                "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/191/791/81191791_1555664874860_1_600x600.JPG",
-                                LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
-                                        .setMobileWebUrl("https://developers.kakao.com").build())
-                                .setDescrption("덤프잇?!")
-                                .build())
-                        .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl("https://developers.kakao.com").setMobileWebUrl("https://developers.kakao.com").build()))
-//                        .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
-//                                .setWebUrl("https://developers.kakao.com")
-//                                .setMobileWebUrl("https://developers.kakao.com")
-//                                .setAndroidExecutionParams("key1=value1")
-//                                .setIosExecutionParams("key1=value1")
-//                                .build()))
-                        .build();
-                Map<String, String> serverCallbackArgs = new HashMap<String, String>();
-                serverCallbackArgs.put("user_id", "${current_user_id}");
-                serverCallbackArgs.put("product_id", "${shared_product_id}");
-
-                KakaoLinkService.getInstance().sendDefault(MarketItemClick.this, params, new ResponseCallback<KakaoLinkResponse>() {
-                    @Override
-                    public void onFailure(ErrorResult errorResult) {}
-
-                    @Override
-                    public void onSuccess(KakaoLinkResponse result) {
-                        System.out.println("카톡성공!!");
-                    }
-                });
+                // SMS 전송하기 ---?
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, "덤프잇", null, null);
+                    Toast.makeText(getApplicationContext(), "전송 완료!", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "SMS failed", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
                 //날짜 및 시간 형식 지정
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simpleDateFormat.format(System.currentTimeMillis());

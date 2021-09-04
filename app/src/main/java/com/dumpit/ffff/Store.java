@@ -117,7 +117,6 @@ public class Store extends Fragment{
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference();
 
-
         // 마켓 아이템 추가
         mReference.child("MarketItems").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
