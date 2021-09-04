@@ -121,8 +121,7 @@ public class SignUp extends AppCompatActivity {
                             databaseReference.child("users").child(id+"_"+website).child("useruid").setValue(useruid);
                             databaseReference.child("users").child(id+"_"+website).child("Totalpoint").setValue(point);
                             // 마켓상품 추가 (임시)
-                            String[] list = {"BHC 치즈볼", "가나 초콜릿", "문화상품권 5000원", "바세린 50ml", "빼빼로 오리지널",
-                                    "스타벅스 아이스 아메리카노 tall", "양키 캔들", "하늘보리"};
+                            String[] list = {"누가바", "돼지바", "자일리톨", "츄파춥스", "호두마루", "체리마루", "지구젤리", "후라보노"};
                             for(int j=0; j<list.length; j++)
                                 databaseReference.child("users").child(id+"_"+website).child("zzim").child(list[j]).setValue(false);
 
