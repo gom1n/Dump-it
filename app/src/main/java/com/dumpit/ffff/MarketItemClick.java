@@ -53,9 +53,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.SendFailedException;
-
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.exit;
 
@@ -252,9 +249,6 @@ public class MarketItemClick extends AppCompatActivity {
                 if(TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(BuyEmail)) {
                     Toast.makeText(MarketItemClick.this, "전화번호와 이메일을 입력해주세요", LENGTH_SHORT).show();
                     return;
-                } else {
-                    mReference.child("users").child(id).child("phoneNumber").setValue(phoneNumber);
-                    mReference.child("users").child(id).child("BuyEmail").setValue(BuyEmail);
                 }
                 // SMS 전송하기 ---?
                 try {
@@ -304,8 +298,6 @@ public class MarketItemClick extends AppCompatActivity {
 
                     }
                 });
-//                Intent tt = new Intent(getApplicationContext(), itemBarcode.class);
-//                startActivity(tt);
             }
         });
         // 엑스 버튼

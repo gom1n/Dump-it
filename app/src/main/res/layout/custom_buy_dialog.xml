@@ -97,7 +97,7 @@
         android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="*24시간 이내에 카카오톡 채널로 해당 물품의 기프티콘이 발송됩니다.\n 만약 발송되지 않았을 경우, 관리자에게 문의하십시오."
+        android:text="*24시간 이내에 번호로 해당 물품의 기프티콘이 발송됩니다.\n 만약 발송되지 않았을 경우, 관리자에게 문의하십시오."
         android:textSize="8sp" />
 
     <ImageView
