@@ -30,6 +30,7 @@
         <activity android:name=".BuyList" />
         <activity android:name=".PointList" />
         <activity android:name=".seeMap" />
+        <activity android:name=".seeBarcode" />
         <activity android:name=".itemBarcode" />
 
 <!--        <receiver android:name=".MarketItemClick">-->

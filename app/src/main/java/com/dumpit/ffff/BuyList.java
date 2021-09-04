@@ -1,11 +1,13 @@
 package com.dumpit.ffff;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -76,8 +78,21 @@ public class BuyList extends AppCompatActivity{
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
+
+        // 상품구매내역 클릭 시 물품 바코드 등장!
+        listViews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a_parent, View a_view, int a_position, long a_id) {
+                BuyItem item = (BuyItem) a_parent.getAdapter().getItem(a_position);
+                String url = item.getImageURI();
+                Intent intent = new Intent(getApplicationContext(), seeBarcode.class);
+                intent.putExtra("imageURI", url);
+                System.out.println(url);
+                startActivity(intent);
+            }
+        });
+
     }
 }
 // 구매아이템 데이터 담기
@@ -86,14 +101,16 @@ class BuyItem {
     int price;
     int bmyPoint;
     String buyTime;
+    String imageURI;
 
     // Generate > Constructor
     public BuyItem() {}
-    public BuyItem(String name, int price, int BmyPoint, String buyTime) {
+    public BuyItem(String name, int price, int BmyPoint, String buyTime, String imageURI) {
         this.name = name;
         this.price = price;
         this.bmyPoint = BmyPoint;
         this.buyTime = buyTime;
+        this.imageURI = imageURI;
     }
 
     // Generate > Getter and Setter
@@ -107,6 +124,9 @@ class BuyItem {
     public String getBuyTime() {
         return this.buyTime;
     }
+    public String getImageURI() {
+        return this.imageURI;
+    }
 
 
     // Generate > toString() : 아이템을 문자열로 출력
@@ -117,6 +137,7 @@ class BuyItem {
                 ", price='" + price + '\'' +
                 ", BmyPoint='" + bmyPoint + '\'' +
                 ", BuyTime='" + buyTime + '\'' +
+                ", imageURI='" + imageURI + '\'' +
                 '}';
     }
 }

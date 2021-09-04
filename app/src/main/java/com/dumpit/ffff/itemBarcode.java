@@ -16,8 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
@@ -47,6 +50,8 @@ public class itemBarcode extends AppCompatActivity {
     TextView buyAfterPoint;
     TextView buyUser;
     Button go_shopping;
+
+    boolean isBought;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +88,16 @@ public class itemBarcode extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
+        String email = user.getEmail();
+        int index = email.indexOf("@");
+        String id = email.substring(0, index);
+        String web = email.substring(index+1);
+        int webidx = web.indexOf(".");
+        String website = web.substring(0, webidx);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String email = user.getEmail();
-                int index = email.indexOf("@");
-                String id = email.substring(0, index);
-                String web = email.substring(index+1);
-                int webidx = web.indexOf(".");
-                String website = web.substring(0, webidx);
                 String getname = snapshot.child("users").child(id+"_"+website).child("nickname").getValue(String.class);
                 buyUser.setText(getname);
             }
@@ -101,6 +107,64 @@ public class itemBarcode extends AppCompatActivity {
 
             }
         });
+
+        // 아이템 바코드 추가
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference listRef = storage.getReference().child("itemBarcode");
+        listRef.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        for (StorageReference item : listResult.getItems()) {
+                            item.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    if (task.isSuccessful()) {
+                                        String uri = task.getResult().toString();
+                                        isBought = false;
+                                        databaseReference.child("buy").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                    if(uri.equals(dataSnapshot.getValue(String.class))) {
+                                                        isBought = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if(isBought == false) {
+                                                    databaseReference.child("buy").child(buyTime).setValue(uri);
+                                                    databaseReference.child("users/"+id+"_"+website+"/marketHistory/"+buyTime+"/imageURI").setValue(uri);
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(itemBarcode.this, "진입실패", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            String uri = item.getDownloadUrl().toString();
+
+
+                        }
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
+
+
 
         go_shopping = (Button) findViewById(R.id.go_shopping);
         go_shopping.setOnClickListener(new View.OnClickListener() {
