@@ -48,9 +48,6 @@ public class MyPage extends Fragment {
     TextView pointtxt;
     TextView storetxt;
 
-    ////
-    Button selectBtn;
-    Button predictBtn;
 
     @Nullable
     @Override
@@ -66,19 +63,6 @@ public class MyPage extends Fragment {
 
         name = (TextView)viewGroup.findViewById(R.id.name);
         point = (TextView)viewGroup.findViewById(R.id.point);
-
-        ///////
-        selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
-        predictBtn = (Button)viewGroup.findViewById(R.id.predictBtn);
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), TeachableMachine.class);
-                startActivity(intent);
-            }
-        });
-
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

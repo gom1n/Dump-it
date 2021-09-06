@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -61,7 +62,8 @@ public class CameraShot extends AppCompatActivity {
     int points = 0;
     private AdView mAdview; //애드뷰 변수 선언
 
-
+    ////
+    Button selectBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,17 @@ public class CameraShot extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
+
+        ////
+        selectBtn = (Button)findViewById(R.id.selectBtn);
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TeachableMachine.class);
+                startActivity(intent);
+            }
+        });
 
 
         int permissionCheck = ContextCompat.checkSelfPermission(CameraShot.this, Manifest.permission.CAMERA);

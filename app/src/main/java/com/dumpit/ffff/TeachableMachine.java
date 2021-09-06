@@ -24,8 +24,6 @@ import java.nio.ByteBuffer;
 
 public class TeachableMachine extends AppCompatActivity {
 
-
-    ////
     Button selectBtn;
     Button predictBtn;
     ImageView imgView;
@@ -39,7 +37,6 @@ public class TeachableMachine extends AppCompatActivity {
 
         imgView = (ImageView)findViewById(R.id.imgView);
         tv = (TextView)findViewById(R.id.tv);
-        ///////
         selectBtn = (Button)findViewById(R.id.selectBtn);
         predictBtn = (Button)findViewById(R.id.predictBtn);
         selectBtn.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +64,7 @@ public class TeachableMachine extends AppCompatActivity {
                     tensorImage.load(img);
                     ByteBuffer byteBuffer = tensorImage.getBuffer();
 
-                    System.out.println("          " + inputFeature0.getTypeSize());
-
+                    //// The size of byte buffer and the shape do not match 에러 발생.
                     inputFeature0.loadBuffer(byteBuffer);
 
                     // Runs model inference and gets result.
