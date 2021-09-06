@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dumpit">
-        <activity android:name=".NoticePage"></activity>
+        <activity android:name=".TeachableMachine"></activity>
+        <activity android:name=".NoticePage" />
         <activity android:name=".Notice" />
         <activity android:name=".UserInfo" />
         <activity android:name=".SignUp" />
@@ -31,14 +31,11 @@
         <activity android:name=".PointList" />
         <activity android:name=".seeMap" />
         <activity android:name=".seeBarcode" />
-        <activity android:name=".itemBarcode" />
-
-<!--        <receiver android:name=".MarketItemClick">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
+        <activity android:name=".itemBarcode" /> <!-- <receiver android:name=".MarketItemClick"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

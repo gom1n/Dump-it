@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.dumpit.ffff"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -27,6 +27,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        mlModelBinding true
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -37,6 +40,8 @@ dependencies {
     implementation 'com.android.support:design:30.0.3'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation files('..\\.idea\\jsoup-1.14.2.jar')
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
     def nav_version = "2.3.5"
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
     implementation "androidx.navigation:navigation-fragment:$nav_version"
