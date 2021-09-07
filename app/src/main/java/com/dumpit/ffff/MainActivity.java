@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Store store;
     Map map;
     MyPage mypage;
+    Recognize recognize;
 
 
     @Override
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         store = new Store();
         map = new Map();
         mypage = new MyPage();
+        recognize = new Recognize();
+
 
         //제일 처음 띄워줄 뷰를 세팅해줍니다. commit();까지 해줘야 합니다.
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, home).commitAllowingStateLoss();
@@ -52,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     case R.id.camera: {
-                        Intent intent = new Intent(MainActivity.this, CameraShot.class);
-                        startActivity(intent);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout, recognize).commitAllowingStateLoss();
+                        return true;
                     }
 
                     case R.id.store: {
