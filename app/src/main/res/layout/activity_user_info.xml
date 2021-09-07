@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/infoedit"
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/dream5"
+        android:layout_marginTop="25dp"
+        android:text="회원정보 수정"
+        android:textColor="#5C684F"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dream5"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="ID(Email)는 변경 불가합니다"></TextView>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/edit_id"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dream5"
+            android:gravity="center_vertical"
+            android:text="ID"
+            android:textColor="#5C684F"
+            android:textSize="18sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/input_edit_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/dream5"
+            android:inputType="textPersonName"
+            android:textColor="#5C684F"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/edit_nickname"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/dream5"
+            android:gravity="center_vertical"
+            android:text="닉네임"
+            android:textColor="#5C684F"
+            android:textSize="18sp">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/input_edit_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dream5"
+            android:textColor="#5C684F"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/edit_password"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/dream5"
+            android:gravity="center_vertical"
+            android:text="비밀번호"
+            android:textColor="#5C684F"
+            android:textSize="18sp">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/changepw"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/dream5"
+            android:text="비밀번호 변경"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="#C2D5B0"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/dream5"
+            android:gravity="center"
+            android:text="취소"
+            app:backgroundTint="#7B9362"/>
+        <Button
+            android:id="@+id/changeInfo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/dream5"
+            android:gravity="center"
+            android:text="정보 변경"
+            app:backgroundTint="#7B9362"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="#00000000"
+            android:fontFamily="@font/dream5"
+            android:gravity="center"
+            android:text="로그아웃"
+            android:textColor="#5C684F"
+            android:textSize="15sp"
+            app:backgroundTint="#FFFFFF" />
+
+        <Button
+            android:id="@+id/withdraw"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="#00000000"
+            android:fontFamily="@font/dream5"
+            android:gravity="center"
+            android:text="회원 탈퇴"
+            android:textColor="#5C684F"
+            android:textSize="15sp"
+            app:backgroundTint="#FFFFFF" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

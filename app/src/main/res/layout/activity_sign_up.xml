@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/dream5"
+        android:gravity="center_horizontal"
+        android:text="회원가입"
+        android:textColor="#5C684F"
+        android:textSize="30dp"></TextView>
+
+    <ImageView
+        android:id="@+id/login_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/login_ic"></ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:orientation="vertical">
+
+        <!--아이디-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/signup_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:ems="15"
+                android:fontFamily="@font/dream5"
+                android:hint="ID"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:fontFamily="@font/dream5"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="※ 이메일 형식으로 작성 부탁드립니다." />
+        </LinearLayout>
+
+        <!--비밀번호-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/signup_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="5dp"
+                android:ems="15"
+                android:fontFamily="@font/dream5"
+                android:hint="PASSWORD"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:textSize="12dp"
+                android:fontFamily="@font/dream5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="※ 비밀번호는 6자리 이상이어야합니다." />
+        </LinearLayout>
+
+        <!--닉네임-->
+
+        <EditText
+            android:id="@+id/signup_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="9dp"
+            android:layout_marginRight="5dp"
+            android:ems="15"
+            android:fontFamily="@font/dream5"
+            android:hint="NICKNAME"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <!--회원가입버튼-->
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/dream5"
+        android:text="SIGN UP"
+        app:backgroundTint="#C2D5B0" />
+
+</LinearLayout>

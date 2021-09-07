@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    >
+
+    <ImageView
+        android:layout_width="292dp"
+        android:layout_height="67dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:src="@drawable/dust"></ImageView>
+
+    <ImageView
+        android:id="@+id/login_btn"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/login_ic"></ImageView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal">
+
+        <!--아이디-->
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/login_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="15"
+            android:fontFamily="@font/dream5"
+            android:hint="ID"
+            android:inputType="text" />
+
+        <!--비밀번호-->
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_id"
+            android:layout_gravity="center"
+            android:layout_marginTop="9dp"
+            android:ems="15"
+            android:fontFamily="@font/dream5"
+            android:hint="PASSWORD"
+            android:inputType="textPassword" />
+
+        <!--로그인버튼-->
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edge"
+        android:fontFamily="@font/dream5"
+        android:text="LOGIN"
+        app:backgroundTint="#C2D5B0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <!--아이디 비밀번호 찾기 버튼-->
+        <Button
+            android:id="@+id/findID"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/dream5"
+            android:textSize="12dp"
+            android:text="ID/PW 찾기"
+            app:backgroundTint="#9FBD80" />
+
+        <!--회원가입버튼-->
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/signUp"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/dream5"
+            android:textSize="12dp"
+            android:text="SIGN UP"
+            app:backgroundTint="#9FBD80" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="로그아웃"
+        android:background="@drawable/edge"
+        android:textColor="#ffffff"
+        app:backgroundTint="#7B9362" />
+
+</LinearLayout>
