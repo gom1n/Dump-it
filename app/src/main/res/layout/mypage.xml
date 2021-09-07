@@ -8,6 +8,13 @@
     android:orientation="vertical"
     app:ignore="NamespaceTypo">
 
+
+    <Button
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teachable Machine"
+        android:id="@+id/selectBtn"/>
     <TextView
         android:layout_width="292dp"
         android:layout_height="67dp"

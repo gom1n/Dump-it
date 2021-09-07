@@ -60,7 +60,8 @@ public class TeachableMachine extends AppCompatActivity {
                     // Creates inputs for reference.
                     TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
 
-                    TensorImage tensorImage = new TensorImage(DataType.FLOAT32);
+                    System.out.println("result : " + inputFeature0.getShape());
+                    TensorImage tensorImage = new TensorImage(DataType.UINT8);
                     tensorImage.load(img);
                     ByteBuffer byteBuffer = tensorImage.getBuffer();
 
@@ -74,7 +75,8 @@ public class TeachableMachine extends AppCompatActivity {
                     // Releases model resources if no longer used.
                     model.close();
 
-                    tv.setText(outputFeature0.getFloatArray()[0] + "\n" + outputFeature0.getFloatArray()[1]);
+                    System.out.println();
+                    tv.setText("paper : " + outputFeature0.getFloatArray()[0] + "\nplastic : " + outputFeature0.getFloatArray()[1] + "\ntrash: " + outputFeature0.getFloatArray()[2]);
 
                 } catch (IOException e) {
                     // TODO Handle the exception
