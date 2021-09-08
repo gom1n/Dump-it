@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Store store;
     Map map;
     MyPage mypage;
+    CameraShot camera;
 
 
     @Override
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         store = new Store();
         map = new Map();
         mypage = new MyPage();
+        camera = new CameraShot();
 
         //제일 처음 띄워줄 뷰를 세팅해줍니다. commit();까지 해줘야 합니다.
         getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, home).commitAllowingStateLoss();
@@ -52,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     case R.id.camera: {
-                        Intent intent = new Intent(MainActivity.this, CameraShot.class);
-                        startActivity(intent);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout, camera).commitAllowingStateLoss();
+                        return true;
                     }
 
                     case R.id.store: {
