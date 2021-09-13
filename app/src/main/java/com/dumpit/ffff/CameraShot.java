@@ -73,6 +73,8 @@ public class CameraShot extends Fragment {
     int points = 0;
     private AdView mAdview; //애드뷰 변수 선언
     private MediaScanner scanner; //사진 저장 후 갤러리에 변경사항 업데이트
+    ////
+    Button selectBtn;
 
     @Nullable
     @Override
@@ -80,6 +82,15 @@ public class CameraShot extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.camera, container, false);
 
+        ////
+        selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TeachableMachine.class);
+                startActivity(intent);
+            }
+        });
 
         scanner = MediaScanner.getInstance(getContext());
 

@@ -4,8 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".TeachableMachine">
 
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="이미지 인식하기"
+        android:fontFamily="@font/dream5"
+        android:textColor="#5C684F"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이미지를 선택한 후 인식하기 버튼을 눌러주세요."
+        android:fontFamily="@font/dream5"
+        android:textColor="#8C8C8C"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,16 +56,20 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SELECT"
+                    android:text="이미지 선택"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/selectBtn"/>
+                    android:id="@+id/selectBtn"
+                    android:fontFamily="@font/dream5"
+                    android:background="#7B9362"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PREDICT"
+                    android:text="인식하기"
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/predictBtn"/>
+                    android:id="@+id/predictBtn"
+                    android:fontFamily="@font/dream5"
+                    android:background="#7B9362"/>
             </LinearLayout>
 
             <TextView

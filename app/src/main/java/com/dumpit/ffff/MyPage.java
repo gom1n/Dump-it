@@ -48,24 +48,11 @@ public class MyPage extends Fragment {
     TextView pointtxt;
     TextView storetxt;
 
-    ////
-    Button selectBtn;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.mypage, container, false);
-
-        ////
-        selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), TeachableMachine.class);
-                startActivity(intent);
-            }
-        });
 
         // Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
