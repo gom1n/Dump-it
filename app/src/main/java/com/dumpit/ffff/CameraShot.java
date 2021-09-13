@@ -70,7 +70,8 @@ public class CameraShot extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE= 672;
     private String imageFilePath;
     private Uri photoUri;
-    int points = 0;
+    int results = -1;
+    Button selectBtn;
     private AdView mAdview; //애드뷰 변수 선언
     private MediaScanner scanner; //사진 저장 후 갤러리에 변경사항 업데이트
 
@@ -104,7 +105,7 @@ public class CameraShot extends Fragment {
         TedPermission.with(getContext())
                 .setPermissionListener(permissionListener)
                 .setRationaleMessage("카메라 권한이 필요합니다.")
-                .setDeniedMessage("거부하셨습니다.")
+                .setDeniedMessage(" 카메라 촬영을 원하시면\n 설정->어플리케이션->dumpit에 들어가서\n 카메라 권한을 허용해주세요")
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
 
@@ -123,6 +124,11 @@ public class CameraShot extends Fragment {
 
                     if (photoFile != null) {
 
+                        if(results == PackageManager.PERMISSION_DENIED) {
+                            Toast.makeText(getContext(), "권한이 거부되었으니\nㅛ 다시 설정 해주세요.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         photoUri = FileProvider.getUriForFile(getContext(), getActivity().getPackageName(), photoFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
@@ -138,34 +144,16 @@ public class CameraShot extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                viewGroup.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
 
-                    public void onClick(View view) {
-                        File photoFile = null;
-                        String email = user.getEmail();
-                        int index = email.indexOf("@");
-                        String id = email.substring(0, index);
-                        String web = email.substring(index + 1);
-                        int webidx = web.indexOf(".");
-                        String website = web.substring(0, webidx);
-
-                        if (photoFile != null) {
-                            Toast.makeText(getContext(), "카메라 촬영을 원하시면 설정->어플리케이션->dumpit에 들어가서\n 카메라 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String time = simpleDateFormat.format(System.currentTimeMillis());
-
-                        points = snapshot.child("users").child(id + "_" + website).child("Totalpoint").getValue(Integer.class) + 50;
-                        databaseReference.child("users").child(id + "_" + website).child("point").child(time).setValue("폐의약품 1p");
-                        databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
-                        Toast.makeText(getContext(), "50p 적립!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), MainActivity.class);
+                selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
+                selectBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), TeachableMachine.class);
                         startActivity(intent);
                     }
                 });
+
             }
 
             public void onCancelled(@NonNull DatabaseError error) {
