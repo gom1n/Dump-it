@@ -21,6 +21,7 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 public class TeachableMachine extends AppCompatActivity {
 
@@ -29,22 +30,42 @@ public class TeachableMachine extends AppCompatActivity {
     ImageView imgView;
     private Bitmap img;
     TextView tv;
+    private ArrayList<String> result;
+    TextView getResult;
+    Button getPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachable_machine);
 
+        result = new ArrayList<String>();
+        result.add("종류1");
+        result.add("종류2");
+        result.add("종류3");
+
         imgView = (ImageView)findViewById(R.id.imgView);
         tv = (TextView)findViewById(R.id.tv);
+        tv.setText("이미지를 선택해주세요");
         selectBtn = (Button)findViewById(R.id.selectBtn);
         predictBtn = (Button)findViewById(R.id.predictBtn);
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                tv.setText("");
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, 100);
+            }
+        });
+        getResult = (TextView)findViewById(R.id.getResult);
+        getPoint = (Button)findViewById(R.id.getPoint);
+        getPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 포인트 적립 코드
+
             }
         });
 
@@ -76,7 +97,23 @@ public class TeachableMachine extends AppCompatActivity {
                     model.close();
 
                     System.out.println();
-                    tv.setText("paper : " + outputFeature0.getFloatArray()[0] + "\nplastic : " + outputFeature0.getFloatArray()[1] + "\ntrash: " + outputFeature0.getFloatArray()[2]);
+
+                    //tv.setText("paper : " + outputFeature0.getFloatArray()[0] + "\nplastic : " + outputFeature0.getFloatArray()[1] + "\ntrash: " + outputFeature0.getFloatArray()[2]);
+
+                    Float feat = new Float(0.0);
+                    String resultFeat = result.get(0);
+                    feat = outputFeature0.getFloatArray()[0];
+                    for(int i = 0; i < 3; i++){
+                        if(feat < outputFeature0.getFloatArray()[i]){
+                            feat = outputFeature0.getFloatArray()[i];
+                            resultFeat = result.get(i);
+                            System.out.println("result : " + resultFeat);
+                            getResult.setText(resultFeat + " (" + feat + ")");
+                            if(resultFeat.equals("종류2")){
+                                getPoint.setEnabled(true);
+                            }
+                        }
+                    }
 
                 } catch (IOException e) {
                     // TODO Handle the exception

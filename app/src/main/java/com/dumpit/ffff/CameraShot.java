@@ -73,8 +73,6 @@ public class CameraShot extends Fragment {
     int points = 0;
     private AdView mAdview; //애드뷰 변수 선언
     private MediaScanner scanner; //사진 저장 후 갤러리에 변경사항 업데이트
-    ////
-    Button selectBtn;
 
     @Nullable
     @Override
@@ -82,15 +80,6 @@ public class CameraShot extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.camera, container, false);
 
-        ////
-        selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
-        selectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), TeachableMachine.class);
-                startActivity(intent);
-            }
-        });
 
         scanner = MediaScanner.getInstance(getContext());
 
@@ -106,14 +95,10 @@ public class CameraShot extends Fragment {
         adView.setAdSize(AdSize.BANNER); //광고 사이즈는 배너 사이즈로 설정
         adView.setAdUnitId("\n" + "ca-app-pub-3940256099942544/6300978111");
 
-
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
-
 
         int permissionCheck = ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA);
         TedPermission.with(getContext())

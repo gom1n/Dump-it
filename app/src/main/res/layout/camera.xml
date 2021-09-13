@@ -16,13 +16,6 @@
         android:textColor="#5C684F"
         android:textSize="30dp"></TextView>
 
-    <Button
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Teachable Machine"
-        android:id="@+id/selectBtn"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"

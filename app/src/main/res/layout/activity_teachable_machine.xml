@@ -52,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <Button
                     android:layout_width="wrap_content"
@@ -75,7 +76,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv"/>
+                android:id="@+id/tv"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="↓결과↓"
+                android:textSize="20sp"
+                android:fontFamily="@font/dream5"/>
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/getResult"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getPoint"
+                android:text="포인트 받기"
+                android:textSize="18sp"
+                android:fontFamily="@font/dream5"
+                android:padding="13dp"
+                android:enabled="false"/>
+
 
         </LinearLayout>
 
