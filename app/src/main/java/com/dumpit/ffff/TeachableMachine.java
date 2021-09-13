@@ -54,6 +54,7 @@ public class TeachableMachine extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachable_machine);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -81,7 +82,6 @@ public class TeachableMachine extends AppCompatActivity {
         });
         getResult = (TextView)findViewById(R.id.getResult);
         getPoint = (Button)findViewById(R.id.getPoint);
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,6 +109,7 @@ public class TeachableMachine extends AppCompatActivity {
                         databaseReference.child("users").child(id + "_" + website).child("point").child(time).setValue("폐의약품 1p");
                         databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
                         Toast.makeText(getApplicationContext(), "50p 적립!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
             }

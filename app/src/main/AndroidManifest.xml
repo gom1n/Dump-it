@@ -19,13 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dumpit">
-        <activity android:name=".TeachableMachine"></activity>
+        <activity android:name=".TeachableMachine" />
         <activity android:name=".NoticePage" />
         <activity android:name=".Notice" />
         <activity android:name=".UserInfo" />
         <activity android:name=".SignUp" />
-        <activity android:name=".Login" />
-<!--        <activity android:name=".CameraShot" />-->
+        <activity android:name=".Login" /> <!-- <activity android:name=".CameraShot" /> -->
         <activity android:name=".MarketItemClick" />
         <activity android:name=".BuyList" />
         <activity android:name=".PointList" />
