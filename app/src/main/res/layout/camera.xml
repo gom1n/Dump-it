@@ -47,12 +47,11 @@
             map:backgroundTint="#9FBD80" />
 
         <Button
-            android:id="@+id/save"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/dream5"
-            android:text="적립하기"
-            map:backgroundTint="#9FBD80" />
+            android:layout_height="wrap_content"
+            android:text="Teachable Machine"
+            android:id="@+id/selectBtn"/>
 
 
     </LinearLayout>

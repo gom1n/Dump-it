@@ -1,5 +1,6 @@
 package com.dumpit.ffff;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,24 +13,39 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dumpit.ffff.ml.Model;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class TeachableMachine extends AppCompatActivity {
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     Button selectBtn;
     Button predictBtn;
     ImageView imgView;
     private Bitmap img;
     TextView tv;
+    int points = 0;
     private ArrayList<String> result;
     TextView getResult;
     Button getPoint;
@@ -38,6 +54,10 @@ public class TeachableMachine extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachable_machine);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         result = new ArrayList<String>();
         result.add("종류1");
@@ -61,10 +81,38 @@ public class TeachableMachine extends AppCompatActivity {
         });
         getResult = (TextView)findViewById(R.id.getResult);
         getPoint = (Button)findViewById(R.id.getPoint);
-        getPoint.setOnClickListener(new View.OnClickListener() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                // 포인트 적립 코드
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                getPoint.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        File photoFile = null;
+                        String email = user.getEmail();
+                        int index = email.indexOf("@");
+                        String id = email.substring(0, index);
+                        String web = email.substring(index + 1);
+                        int webidx = web.indexOf(".");
+                        String website = web.substring(0, webidx);
+
+                        if (photoFile != null) {
+                            Toast.makeText(getApplicationContext(), "카메라 촬영을 원하시면 설정->어플리케이션->dumpit에 들어가서\n 카메라 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String time = simpleDateFormat.format(System.currentTimeMillis());
+
+                        points = snapshot.child("users").child(id + "_" + website).child("Totalpoint").getValue(Integer.class) + 50;
+                        databaseReference.child("users").child(id + "_" + website).child("point").child(time).setValue("폐의약품 1p");
+                        databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
+                        Toast.makeText(getApplicationContext(), "50p 적립!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
