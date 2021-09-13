@@ -2,6 +2,9 @@ package com.dumpit.ffff;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -64,8 +67,14 @@ public class TeachableMachine extends AppCompatActivity {
         getPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 포인트 적립 코드
+                // 포인트 적립 코드 (+)
 
+                // 자동으로 돌아가기
+                /*Fragment fragment = new MyPage();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_view_tag, fragment, fragment.getClass().getSimpleName())
+                        .commit();*/
+                finish();
             }
         });
 

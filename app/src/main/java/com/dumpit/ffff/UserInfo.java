@@ -25,6 +25,7 @@ public class UserInfo extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
     FirebaseAuth mAuth;
     FirebaseUser user;
 
@@ -54,6 +55,7 @@ public class UserInfo extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,9 +79,26 @@ public class UserInfo extends AppCompatActivity {
         });
 
         changepw.setOnClickListener(new View.OnClickListener() {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            String email = user.getEmail();
+
             @Override
             public void onClick(View view) {
-
+                firebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfo.this);
+                        dlg.setTitle("Checking");
+                        dlg.setMessage("비밀번호 재설정 메일을 전송하였습니다.");
+                        dlg.setPositiveButton("확인", null);
+                        dlg.show();
+                    } else {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfo.this);
+                        dlg.setTitle("Checking");
+                        dlg.setMessage("비밀번호 재설정 메일 전송을 실패하였습니다.");
+                        dlg.setPositiveButton("확인", null);
+                        dlg.show();
+                    }
+                });
             }
         });
 

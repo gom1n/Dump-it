@@ -73,7 +73,7 @@
             android:layout_gravity="right"
             android:gravity="center_vertical"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:id="@+id/point"
