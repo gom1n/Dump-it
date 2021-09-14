@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -150,6 +152,54 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 회원 탈퇴 코드 (+)
+
+                AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfo.this);
+                dlg.setTitle("!!주의!!");
+                dlg.setMessage("덤프잇(Dump it) 회원 탈퇴를 진행하시겠습니까?\n\n탈퇴를 진행하는 경우, \n같은 이메일로 가입이 어려울 수 있습니다.");
+                dlg.setIcon(R.drawable.dust);
+                dlg.setPositiveButton("탈퇴", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+
+                        firebaseAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfo.this);
+                                dlg.setTitle("Dump it!");
+                                dlg.setMessage("Thank you for using our app:)\nSee you soon!");
+                                dlg.setIcon(R.drawable.dust);
+                                dlg.setPositiveButton("Bye", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int which){
+                                        FirebaseAuth.getInstance().signOut();
+
+                                        finish();
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                dlg.show();
+//                                Intent intent = new Intent(getApplicationContext(), Login.class);
+//                                startActivity(intent);
+                            }
+                        });
+
+                        /*user.delete();
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfo.this);
+                        dlg.setTitle("Dump it!");
+                        dlg.setMessage("Thank you for using our app:)\nSee you soon!");
+                        dlg.setIcon(R.drawable.dust);
+                        dlg.setPositiveButton("Bye", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which){
+                                FirebaseAuth.getInstance().signOut();
+
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                            }
+                        });
+                        dlg.show();*/
+                    }
+                });
+                dlg.setNegativeButton("취소", null);
+                dlg.show();
             }
         });
     }
