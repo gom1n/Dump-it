@@ -36,9 +36,7 @@ public class Login extends AppCompatActivity {
     EditText loginID;
     EditText loginPW;
     Button loginbtn;
-    Button findID;
     Button signUp;
-    Button logout;
 
     ProgressDialog dialog;
     private long time = 0;
@@ -87,14 +85,6 @@ public class Login extends AppCompatActivity {
                 login();
             }
         });
-        findID = (Button) findViewById(R.id.findID);
-        findID.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                //아이디 및 비밀번호 찾기 페이지로 이동.
-            }
-        });
         signUp = (Button) findViewById(R.id.signUp);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,15 +93,6 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 //회원가입 페이지로 이동.
-            }
-        });
-        logout = (Button)findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
             }
         });
 
@@ -145,9 +126,20 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task){
                         dialog.dismiss();
                         if(task.isSuccessful()){
-                            finish();
-                            //FirebaseUser user = mAuth.getCurrentUser();
-                            //String useruid = user.getUid();
+                            if(firebaseAuth.getCurrentUser().getEmail() == null){
+                                AlertDialog.Builder dlg = new AlertDialog.Builder(Login.this);
+                                dlg.setTitle("로그인 실패");
+                                dlg.setMessage("다시 시도해주세요");
+                                dlg.setIcon(R.drawable.dust);
+                                dlg.setPositiveButton("확인", null);
+                                dlg.setCancelable(false);
+                                dlg.show();
+                            }
+                            else{
+                                finish();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
                         }
                         else{
                             AlertDialog.Builder dlg = new AlertDialog.Builder(Login.this);
@@ -160,8 +152,6 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 });
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
     }
 
     @Override
