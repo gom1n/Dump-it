@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="0"
+        android:fontFamily="@font/dream5"
+        android:gravity="center_horizontal"
+        android:text="개인정보 수집 및 이용 동의"
+        android:textColor="#5C684F"
+        android:textSize="30dp"></TextView>
+
+    <TextView
+        android:id="@+id/goToBlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:fontFamily="@font/dream5"
+        android:text="블로그에서의 확인이 필요하시다면 이 곳을 클릭해주세요."
+        android:textSize="12sp" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/consentContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="content" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/consentSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" />
+
+        <Button
+            android:id="@+id/checking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/edge2"
+            android:fontFamily="@font/dream5"
+            android:text="확인" />
+    </LinearLayout>
+
+
+</LinearLayout>

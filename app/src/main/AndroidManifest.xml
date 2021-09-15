@@ -24,7 +24,8 @@
         <activity android:name=".Notice" />
         <activity android:name=".UserInfo" />
         <activity android:name=".SignUp" />
-        <activity android:name=".Login" /> <!-- <activity android:name=".CameraShot" /> -->
+        <activity android:name=".ConsentRegister" />
+        <activity android:name=".Login" />
         <activity android:name=".MarketItemClick" />
         <activity android:name=".BuyList" />
         <activity android:name=".PointList" />
