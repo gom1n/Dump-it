@@ -169,6 +169,15 @@ public class MyPage extends Fragment {
 
             }
         });
+        LinearLayout layout05 = (LinearLayout) viewGroup.findViewById(R.id.version);
+        layout04.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent t = new Intent(getContext(), Version.class);
+                startActivity(t);
+
+            }
+        });
         return viewGroup;
     }
 

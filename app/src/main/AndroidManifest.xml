@@ -26,6 +26,7 @@
         <activity android:name=".SignUp" />
         <activity android:name=".ConsentRegister" />
         <activity android:name=".Login" />
+        <activity android:name=".Version" />
         <activity android:name=".MarketItemClick" />
         <activity android:name=".BuyList" />
         <activity android:name=".PointList" />
