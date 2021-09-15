@@ -119,33 +119,8 @@ public class SignUp extends AppCompatActivity {
                     for(int j=0; j<list.length; j++)
                         databaseReference.child("users").child(id+"_"+website).child("zzim").child(list[j]).setValue(false);
 
-//                    FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getApplicationContext(), ConsentRegister.class);
                     startActivity(intent);
-
-//                    AlertDialog.Builder dlg = new AlertDialog.Builder(SignUp.this);
-//                    dlg.setTitle("환영합니다");
-//                    dlg.setMessage("회원가입 완료");
-//                    dlg.setIcon(R.drawable.dust);
-//                    dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            databaseReference.child("users").child(id+"_"+website).child("email").setValue(email);
-//                            databaseReference.child("users").child(id+"_"+website).child("nickname").setValue(nickname);
-//                            databaseReference.child("users").child(id+"_"+website).child("useruid").setValue(useruid);
-//                            databaseReference.child("users").child(id+"_"+website).child("Totalpoint").setValue(point);
-//                            // 마켓상품 추가 (임시)
-//                            String[] list = {"누가바", "돼지바", "자일리톨", "츄파춥스", "호두마루", "체리마루", "지구젤리", "후라보노"};
-//                            for(int j=0; j<list.length; j++)
-//                                databaseReference.child("users").child(id+"_"+website).child("zzim").child(list[j]).setValue(false);
-//
-//                            FirebaseAuth.getInstance().signOut();
-//                            Intent intent = new Intent(getApplicationContext(), ConsentRegister.class);
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    dlg.setCancelable(false);
-//                    dlg.show();
                 }
                 else{
                     progressDialog.cancel();
