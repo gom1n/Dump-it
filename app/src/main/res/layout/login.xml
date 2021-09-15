@@ -64,55 +64,29 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/edge"
-        android:fontFamily="@font/dream5"
-        android:text="LOGIN"
-        app:backgroundTint="#C2D5B0" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <!--아이디 비밀번호 찾기 버튼-->
-        <Button
-            android:id="@+id/findID"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/dream5"
-            android:textSize="12dp"
-            android:text="ID/PW 찾기"
-            app:backgroundTint="#9FBD80" />
-
-        <!--회원가입버튼-->
-        <Button
-            android:layout_marginLeft="10dp"
-            android:id="@+id/signUp"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/dream5"
-            android:textSize="12dp"
-            android:text="SIGN UP"
-            app:backgroundTint="#9FBD80" />
-
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/logout"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="로그아웃"
+        android:layout_marginTop="50dp"
         android:background="@drawable/edge"
+        android:fontFamily="@font/dream5"
+        android:text="LOGIN"
         android:textColor="#ffffff"
         app:backgroundTint="#7B9362" />
+
+    <!--회원가입버튼-->
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edge"
+        android:fontFamily="@font/dream5"
+        android:textColor="#ffffff"
+        android:text="회원가입"
+        app:backgroundTint="#9FBD80" />
 
 </LinearLayout>

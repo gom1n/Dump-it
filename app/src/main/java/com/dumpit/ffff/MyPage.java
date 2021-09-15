@@ -56,6 +56,16 @@ public class MyPage extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.mypage, container, false);
 
+
+        selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TeachableMachine.class);
+                startActivity(intent);
+            }
+        });
+
         // Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();

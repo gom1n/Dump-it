@@ -123,12 +123,7 @@ public class CameraShot extends Fragment {
                     }
 
                     if (photoFile != null) {
-
-                        if(results == PackageManager.PERMISSION_DENIED) {
-                            Toast.makeText(getContext(), "권한이 거부되었으니\nㅛ 다시 설정 해주세요.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
+                        
                         photoUri = FileProvider.getUriForFile(getContext(), getActivity().getPackageName(), photoFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
