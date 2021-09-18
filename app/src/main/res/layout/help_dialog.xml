@@ -10,11 +10,72 @@
     <TextView
         android:id="@+id/textView32"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:fontFamily="@font/dream5"
         android:gravity="center"
         android:text="덤프잇 사용 방법"
         android:textColor="#BFE399"
         android:textSize="30dp"></TextView>
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:fontFamily="@font/dream5"
+        android:gravity="center"
+        android:text="* 옆으로 넘겨 확인해보세요!"
+        android:textColor="#9DBA7E"
+        android:textSize="15dp"></TextView>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_1"></ImageView>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_2"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_3"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_4"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_5"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_6"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_7png"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_8"></ImageView>
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/i_9"></ImageView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
 
 </LinearLayout>
