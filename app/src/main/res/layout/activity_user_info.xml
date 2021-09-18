@@ -181,7 +181,7 @@
             android:background="#00000000"
             android:fontFamily="@font/dream5"
             android:gravity="center"
-            android:text="회원 탈퇴"
+            android:text="회원탈퇴"
             android:textColor="#5C684F"
             android:textSize="15sp"
             app:backgroundTint="#FFFFFF" />

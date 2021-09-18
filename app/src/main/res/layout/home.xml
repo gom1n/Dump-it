@@ -34,19 +34,30 @@
 
 
             <TextView
+                android:id="@+id/use"
+                android:layout_width="200dp"
+                android:layout_height="27dp"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/dream5"
+                android:text="Dump It! 사용방법"
+                android:textColor="#5C684F"
+                android:textSize="20dp"></TextView>
+
+            <TextView
                 android:id="@+id/howToUse"
                 android:layout_width="292dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/dream5"
-                android:text="Dump It! 사용방법 >> 클릭!"
-                android:textColor="#5C684F"
-                android:textSize="20dp"></TextView>
+                android:text="* 터치해주세요!"
+                android:textColor="#839371"
+                android:textSize="12dp"></TextView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp">
 
                 <TextView
@@ -60,15 +71,36 @@
 
             </RelativeLayout>
 
-            <ImageView
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/home1"></ImageView>
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/b_o"></ImageView>
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/b_t"></ImageView>
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/b_th"></ImageView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp">
 
                 <TextView
@@ -81,15 +113,36 @@
                     android:textSize="20dp"></TextView>
             </RelativeLayout>
 
-            <ImageView
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/home2"></ImageView>
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/l_o"></ImageView>
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/l_t"></ImageView>
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/l_th"></ImageView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp">
 
                 <TextView
@@ -103,10 +156,31 @@
 
             </RelativeLayout>
 
-            <ImageView
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/home3"></ImageView>
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/m_o"></ImageView>
+
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/m_t"></ImageView>
+                    <ImageView
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/m_th"></ImageView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
 
         </LinearLayout>
     </ScrollView>
