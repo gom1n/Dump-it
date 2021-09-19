@@ -2,9 +2,11 @@ package com.dumpit.ffff;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -34,7 +36,6 @@ public class Home extends Fragment{
     ViewGroup viewGroup;
     Dialog dialog;
     TextView HowToUse;
-    static final int SMS_RECEIVE_PERMISSON=1;
 
     @Nullable
     @Override
@@ -52,26 +53,23 @@ public class Home extends Fragment{
         HowToUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
+                showDialog();
             }
         });
 
-        // SMS 권한이 부여되어 있는지 확인
-        int permissonCheck= ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.RECEIVE_SMS);
-        if(permissonCheck == PackageManager.PERMISSION_GRANTED){
-//            Toast.makeText(getContext(), "SMS 수신권한 있음", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getContext(), "SMS 수신권한 없음", Toast.LENGTH_SHORT).show();
-
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), Manifest.permission.RECEIVE_SMS)){
-                Toast.makeText(getContext(), "SMS권한이 필요합니다", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{ Manifest.permission.RECEIVE_SMS},       SMS_RECEIVE_PERMISSON);
-            }else{
-                ActivityCompat.requestPermissions(this.getActivity(), new String[]{ Manifest.permission.RECEIVE_SMS}, SMS_RECEIVE_PERMISSON);
-            }
-        }
-
         return viewGroup;
+    }
+    // dialog01을 디자인하는 함수
+    public void showDialog(){
+        dialog.show(); // 다이얼로그 띄우기
+
+        // 엑스 버튼
+        dialog.findViewById(R.id.x2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss(); // 다이얼로그 닫기
+            }
+        });
     }
 
 }
