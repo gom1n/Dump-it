@@ -12,8 +12,6 @@ public class Version extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_version);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
     }
 }
