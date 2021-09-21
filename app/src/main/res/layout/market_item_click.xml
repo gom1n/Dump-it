@@ -86,16 +86,29 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView8"
+    <ScrollView
+        android:id="@+id/scroll2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:text="제품설명...?" />
+        android:layout_height="130dp"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:text="\n매장 내 교환 상품이 없을 경우 동일 가격 이상의 다른 상품으로 교환이 가능하며, 추가 금액 결제 후 교환 가능합니다.\n
+    \n[유의사항]\n
+    - 결제시 상품 선택 후 이미지제시\n
+    - 제휴 및 할인은 브랜드사 정책에 따르고 있습니다.\n
+    - 현금과 교환불가\n
+    - 바코드인식이 안 될 경우, 바코드 하단의 번호를 입력하여 결제가능\n
+    \n[교환상품 환불안내]\n
+    - 매장에서 구매한 상품의 경우 30일이내 영수증 지참후 상품을 구매한 매장으로 방문 즉시 교환권으로 재충전됩니다.\n" />
+    </ScrollView>
 
     <View
         android:layout_width="0dp"

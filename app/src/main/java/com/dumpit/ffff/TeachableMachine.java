@@ -62,9 +62,9 @@ public class TeachableMachine extends AppCompatActivity {
 
         result = new ArrayList<String>();
         result.add("일반");
-        result.add("배터리");
-        result.add("의약품");
-        result.add("형광등");
+        result.add("폐건전지");
+        result.add("폐의약품");
+        result.add("폐형광등");
         result.add("etc");
 
         imgView = (ImageView)findViewById(R.id.imgView);
@@ -161,15 +161,18 @@ public class TeachableMachine extends AppCompatActivity {
                             System.out.println("result : " + resultFeat);
                             getResult.setText(resultFeat);
                             //getResult.setText(resultFeat + " (" + feat + ")");
-                            if(resultFeat.equals("배터리")){
+                            if(resultFeat.equals("폐건전지")){
                                 getPoint.setEnabled(true);
                             }
-                            if(resultFeat.equals("의약품")){
+                            if(resultFeat.equals("폐의약품")){
                                 getPoint.setEnabled(true);
                             }
-                            if(resultFeat.equals("형광등")){
+                            if(resultFeat.equals("폐형광등")){
                                 getPoint.setEnabled(true);
                             }
+                        }
+                        else{
+                            getResult.setText("다른 이미지를 인식해주세요.");
                         }
                     }
 
