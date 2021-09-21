@@ -82,12 +82,22 @@
             <ImageView
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                android:src="@drawable/info_c1"></ImageView>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:src="@drawable/i_8"></ImageView>
 
             <ImageView
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:src="@drawable/i_9"></ImageView>
+                android:src="@drawable/info_m1"></ImageView>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/info_m2"></ImageView>
         </LinearLayout>
     </HorizontalScrollView>
 
