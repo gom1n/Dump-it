@@ -120,9 +120,9 @@ public class CameraShot extends Fragment {
 
         result = new ArrayList<String>();
         result.add("일반");
-        result.add("배터리");
-        result.add("의약품");
-        result.add("형광등");
+        result.add("폐건전지");
+        result.add("폐의약품");
+        result.add("폐형광등");
         result.add("etc");
 
 
@@ -199,6 +199,7 @@ public class CameraShot extends Fragment {
                         databaseReference.child("users").child(id + "_" + website).child("point").child(time).child(section).setValue(trashpoint);
                         databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
                         Toast.makeText(getContext().getApplicationContext(), trashpoint + "적립!", Toast.LENGTH_SHORT).show();
+                        getPoint.setEnabled(false);
                         getActivity().finish();
                     }
                 });
@@ -249,22 +250,28 @@ public class CameraShot extends Fragment {
                             System.out.println("result : " + resultFeat);
                             getResult.setText(resultFeat);
                             //getResult.setText(resultFeat + " (" + feat + ")");
-                            if(resultFeat.equals("배터리")){
+                            if(resultFeat.equals("폐건전지")){
                                 getPoint.setEnabled(true);
-                                section = "배터리";
+                                section = "폐건전지";
                                 trashpoint = 1;
-
+                                break;
                             }
-                            if(resultFeat.equals("의약품")){
+                            else if(resultFeat.equals("폐의약품")){
                                 getPoint.setEnabled(true);
-                                section = "의약품";
+                                section = "폐의약품";
                                 trashpoint = 3;
+                                break;
                             }
-                            if(resultFeat.equals("형광등")){
+                            else if(resultFeat.equals("폐형광등")){
                                 getPoint.setEnabled(true);
-                                section = "형광등";
+                                section = "폐형광등";
                                 trashpoint = 2;
+                                break;
                             }
+                        }
+                        else{
+                            getResult.setText("다른 이미지를 인식해주세요.");
+                            getPoint.setEnabled(false);
                         }
                     }
 
