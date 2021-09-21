@@ -129,7 +129,7 @@ public class MyPage extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(getContext());
 
-                CharSequence contactArray[] = new CharSequence[]{"이메일 문의하기", "블로그 문의하기"};
+                CharSequence contactArray[] = new CharSequence[]{"이메일 문의하기", "전화 문의하기"};
                 dlg.setItems(contactArray, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
