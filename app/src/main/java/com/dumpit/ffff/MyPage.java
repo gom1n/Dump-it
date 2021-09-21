@@ -1,5 +1,6 @@
 package com.dumpit.ffff;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -125,8 +127,32 @@ public class MyPage extends Fragment {
         layout01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent tt = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01077777777"));
-                startActivity(tt);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(getContext());
+
+                CharSequence contactArray[] = new CharSequence[]{"이메일 문의하기", "블로그 문의하기"};
+                dlg.setItems(contactArray, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        switch(which){
+                            case 0:
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.setType("plain/text");
+                                String[] address = {"dumpit2021@gmail.com"};
+                                email.putExtra(Intent.EXTRA_EMAIL, address);
+                                email.putExtra(Intent.EXTRA_SUBJECT, "[덤프잇][문의하기] ");
+                                email.putExtra(Intent.EXTRA_TEXT, "[문의 내용]\n");
+                                startActivity(email);
+                                break;
+                            case 1:
+                                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01077777777"));
+                                startActivity(dial);
+                                break;
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                dlg.show();
+
 
             }
         });
