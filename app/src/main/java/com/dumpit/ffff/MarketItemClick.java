@@ -56,10 +56,6 @@ import java.util.Map;
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.System.exit;
 
-/*
-추후 구현사항:
-아이템 설명..?
- */
 
 public class MarketItemClick extends AppCompatActivity {
     TextView itemName;

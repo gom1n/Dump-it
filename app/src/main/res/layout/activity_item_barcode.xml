@@ -31,6 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:layout_weight="0"
         android:fontFamily="@font/dream5"
         android:text="상품의 기프티콘은 마이페이지 > 상품구매내역에서 볼 수 있습니다."
@@ -43,37 +44,6 @@
         android:layout_weight="0"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="125dp">
-
-            <TextView
-                android:id="@+id/nim"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/name"
-                android:fontFamily="@font/dream5"
-                android:text="주문번호"
-                android:textColor="#8CA176"
-                android:layout_gravity="center_vertical"
-                android:textSize="15dp"></TextView>
-
-            <TextView
-                android:id="@+id/barcodeON"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:textSize="20sp"
-                android:fontFamily="@font/dream5"
-                android:textAlignment="textEnd"
-                android:layout_marginLeft="30dp"
-                android:textColor="#8CA176"
-                android:gravity="center"
-                tools:ignore="RtlCompat"></TextView>
-
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
