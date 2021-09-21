@@ -61,9 +61,11 @@ public class TeachableMachine extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         result = new ArrayList<String>();
-        result.add("종류1");
-        result.add("종류2");
-        result.add("종류3");
+        result.add("일반");
+        result.add("배터리");
+        result.add("의약품");
+        result.add("형광등");
+        result.add("etc");
 
         imgView = (ImageView)findViewById(R.id.imgView);
         tv = (TextView)findViewById(R.id.tv);
@@ -157,8 +159,15 @@ public class TeachableMachine extends AppCompatActivity {
                             feat = outputFeature0.getFloatArray()[i];
                             resultFeat = result.get(i);
                             System.out.println("result : " + resultFeat);
-                            getResult.setText(resultFeat + " (" + feat + ")");
-                            if(resultFeat.equals("종류2")){
+                            getResult.setText(resultFeat);
+                            //getResult.setText(resultFeat + " (" + feat + ")");
+                            if(resultFeat.equals("배터리")){
+                                getPoint.setEnabled(true);
+                            }
+                            if(resultFeat.equals("의약품")){
+                                getPoint.setEnabled(true);
+                            }
+                            if(resultFeat.equals("형광등")){
                                 getPoint.setEnabled(true);
                             }
                         }
