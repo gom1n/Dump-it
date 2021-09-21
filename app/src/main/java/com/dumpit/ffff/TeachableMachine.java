@@ -154,7 +154,7 @@ public class TeachableMachine extends AppCompatActivity {
                     Float feat = new Float(0.0);
                     String resultFeat = result.get(0);
                     feat = outputFeature0.getFloatArray()[0];
-                    for(int i = 0; i < 3; i++){
+                    for(int i = 0; i < 5; i++){
                         if(feat < outputFeature0.getFloatArray()[i]){
                             feat = outputFeature0.getFloatArray()[i];
                             resultFeat = result.get(i);

@@ -22,8 +22,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dumpit.ffff.ml.Model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -47,6 +49,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOError;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,11 +60,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
 import static android.app.Activity.RESULT_OK;
 import static android.os.Environment.DIRECTORY_PICTURES;
 
 public class CameraShot extends Fragment {
     ViewGroup viewGroup;
+
+    Button selectBtn;
+    Button predictBtn;
+    ImageView imgView;
+    private Bitmap img;
+    TextView tv;
+    int points = 0;
+    private ArrayList<String> result;
+    TextView getResult;
+    Button getPoint;
+    String section = "";
+    int trashpoint = 0;
+
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -70,8 +90,6 @@ public class CameraShot extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE= 672;
     private String imageFilePath;
     private Uri photoUri;
-    int results = -1;
-    Button selectBtn;
     private AdView mAdview; //애드뷰 변수 선언
     private MediaScanner scanner; //사진 저장 후 갤러리에 변경사항 업데이트
 
@@ -80,7 +98,6 @@ public class CameraShot extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.camera, container, false);
-
 
         scanner = MediaScanner.getInstance(getContext());
 
@@ -100,6 +117,14 @@ public class CameraShot extends Fragment {
         databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
+        result = new ArrayList<String>();
+        result.add("일반");
+        result.add("배터리");
+        result.add("의약품");
+        result.add("형광등");
+        result.add("etc");
+
 
         int permissionCheck = ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA);
         TedPermission.with(getContext())
@@ -135,26 +160,122 @@ public class CameraShot extends Fragment {
         });
 
 
+        imgView = viewGroup.findViewById(R.id.imgView);
+        tv = viewGroup.findViewById(R.id.tv);
+        tv.setText("이미지를 선택해주세요");
+        selectBtn = viewGroup.findViewById(R.id.selectBtn);
+        predictBtn = viewGroup.findViewById(R.id.predictBtn);
+        selectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv.setText("");
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 100);
+            }
+        });
+
+        getResult = viewGroup.findViewById(R.id.getResult);
+        getPoint = viewGroup.findViewById(R.id.getPoint);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
-                selectBtn = (Button)viewGroup.findViewById(R.id.selectBtn);
-                selectBtn.setOnClickListener(new View.OnClickListener() {
+                getPoint.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getContext(), TeachableMachine.class);
-                        startActivity(intent);
+                        File photoFile = null;
+                        String email = user.getEmail();
+                        int index = email.indexOf("@");
+                        String id = email.substring(0, index);
+                        String web = email.substring(index + 1);
+                        int webidx = web.indexOf(".");
+                        String website = web.substring(0, webidx);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String time = simpleDateFormat.format(System.currentTimeMillis());
+
+                        points = snapshot.child("users").child(id + "_" + website).child("Totalpoint").getValue(Integer.class) + trashpoint;
+                        databaseReference.child("users").child(id + "_" + website).child("point").child(time).child(section).setValue(trashpoint);
+                        databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
+                        Toast.makeText(getContext().getApplicationContext(), trashpoint + "적립!", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
                     }
                 });
-
             }
-
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+        predictBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                img = Bitmap.createScaledBitmap(img, 224, 224, true);
+
+                try {
+                    Model model = Model.newInstance(getContext().getApplicationContext());
+
+                    // Creates inputs for reference.
+                    TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
+
+                    System.out.println("result : " + inputFeature0.getShape());
+                    TensorImage tensorImage = new TensorImage(DataType.UINT8);
+                    tensorImage.load(img);
+                    ByteBuffer byteBuffer = tensorImage.getBuffer();
+
+                    //// The size of byte buffer and the shape do not match 에러 발생.
+                    inputFeature0.loadBuffer(byteBuffer);
+
+                    // Runs model inference and gets result.
+                    Model.Outputs outputs = model.process(inputFeature0);
+                    TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                    // Releases model resources if no longer used.
+                    model.close();
+
+                    System.out.println();
+
+                    //tv.setText("paper : " + outputFeature0.getFloatArray()[0] + "\nplastic : " + outputFeature0.getFloatArray()[1] + "\ntrash: " + outputFeature0.getFloatArray()[2]);
+
+                    Float feat = new Float(0.0);
+                    String resultFeat = result.get(0);
+                    feat = outputFeature0.getFloatArray()[0];
+                    for(int i = 0; i < 5; i++){
+                        if(feat < outputFeature0.getFloatArray()[i]){
+                            feat = outputFeature0.getFloatArray()[i];
+                            resultFeat = result.get(i);
+                            System.out.println("result : " + resultFeat);
+                            getResult.setText(resultFeat);
+                            //getResult.setText(resultFeat + " (" + feat + ")");
+                            if(resultFeat.equals("배터리")){
+                                getPoint.setEnabled(true);
+                                section = "배터리";
+                                trashpoint = 1;
+
+                            }
+                            if(resultFeat.equals("의약품")){
+                                getPoint.setEnabled(true);
+                                section = "의약품";
+                                trashpoint = 3;
+                            }
+                            if(resultFeat.equals("형광등")){
+                                getPoint.setEnabled(true);
+                                section = "형광등";
+                                trashpoint = 2;
+                            }
+                        }
+                    }
+
+                } catch (IOException e) {
+                    // TODO Handle the exception
+                }
+
+            }
+        });
+
+
         return viewGroup;
     }
 
@@ -175,6 +296,18 @@ public class CameraShot extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100){
+            imgView.setImageURI(data.getData());
+
+            Uri uri = data.getData();
+            try {
+                img = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
             ExifInterface exif = null;
@@ -233,9 +366,6 @@ public class CameraShot extends Fragment {
                 e.printStackTrace();
                 result = "File close Error";
             }
-
-
-            ((ImageView) viewGroup.findViewById(R.id.iv_result)).setImageBitmap(rotate(bitmap, exifDegree));
         }
     }
 
@@ -268,5 +398,7 @@ public class CameraShot extends Fragment {
             Toast.makeText(getContext(), "카메라 촬영을 원하시면 설정->어플리케이션->dumpit에 들어가서\n 카메라 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
         }
     };
+
+
 
 }
