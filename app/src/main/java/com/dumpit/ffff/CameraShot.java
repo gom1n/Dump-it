@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -93,14 +94,22 @@ public class CameraShot extends Fragment {
     private AdView mAdview; //애드뷰 변수 선언
     private MediaScanner scanner; //사진 저장 후 갤러리에 변경사항 업데이트
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.camera, container, false);
-
         scanner = MediaScanner.getInstance(getContext());
 
+      /**  public static Home newInstance() {
+            return new Home();
+        }
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_layout, home.newInstance()).commit();
+
+       **/
         MobileAds.initialize(this.getContext(), new OnInitializationCompleteListener() { //광고 초기화
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -196,11 +205,15 @@ public class CameraShot extends Fragment {
                         String time = simpleDateFormat.format(System.currentTimeMillis());
 
                         points = snapshot.child("users").child(id + "_" + website).child("Totalpoint").getValue(Integer.class) + trashpoint;
-                        databaseReference.child("users").child(id + "_" + website).child("point").child(time).child(section).setValue(trashpoint);
+                        databaseReference.child("users").child(id + "_" + website).child("point").child(time).setValue(section + " " + trashpoint+ "p");
                         databaseReference.child("users").child(id + "_" + website).child("Totalpoint").setValue(points);
                         Toast.makeText(getContext().getApplicationContext(), trashpoint + "적립!", Toast.LENGTH_SHORT).show();
                         getPoint.setEnabled(false);
-                        getActivity().finish();
+
+                        CameraShot camera;
+                        camera = new CameraShot();
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout, camera).commitAllowingStateLoss();
                     }
                 });
             }
@@ -235,8 +248,6 @@ public class CameraShot extends Fragment {
 
                     // Releases model resources if no longer used.
                     model.close();
-
-                    System.out.println();
 
                     //tv.setText("paper : " + outputFeature0.getFloatArray()[0] + "\nplastic : " + outputFeature0.getFloatArray()[1] + "\ntrash: " + outputFeature0.getFloatArray()[2]);
 
