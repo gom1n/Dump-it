@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -316,9 +317,11 @@ public class CameraShot extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 100){
-            imgView.setImageURI(data.getData());
 
+
+            if(data == null)  return;
             Uri uri = data.getData();
+            imgView.setImageURI(uri);
             try {
                 img = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
             } catch (IOException e) {
