@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@drawable/edge2"
+            android:backgroundTint="#9FBD80"
             android:fontFamily="@font/dream5"
             android:text="확인" />
     </LinearLayout>
