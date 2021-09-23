@@ -67,6 +67,7 @@
             android:layout_gravity="right"
             android:gravity="center_vertical"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp">
 
             <TextView
@@ -90,16 +91,6 @@
                 android:textColor="#769C4F"
                 android:textSize="25dp"></TextView>
 
-        <ImageView
-            android:id="@+id/setting"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/setting"></ImageView>
         </LinearLayout>
 
 
