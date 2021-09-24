@@ -54,7 +54,7 @@
                 android:textColor="#5C684F"
                 android:layout_gravity="center_vertical"
                 android:textSize="25dp"></TextView>
-    </LinearLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="0dp"
@@ -103,68 +103,78 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/editInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="0"
-            android:background="@drawable/edge"
-            android:fontFamily="@font/dream5"
-            android:padding="15dp"
-            android:text="정보 수정"
-            android:textColor="#FFFFFF"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            android:background="@drawable/edge2"
-            android:fontFamily="@font/dream5"
-            android:padding="15dp"
-            android:text="로그아웃"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/pointButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="0"
-            android:background="@drawable/edge"
-            android:fontFamily="@font/dream5"
-            android:padding="15dp"
-            android:text="포인트 적립 내역"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/storeButton"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="@drawable/edge2"
-            android:fontFamily="@font/dream5"
-            android:padding="15dp"
-            android:text="상품 구매 내역"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/editInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="0"
+                android:background="@drawable/edge"
+                android:fontFamily="@font/dream5"
+                android:padding="15dp"
+                android:text="정보 수정"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/pointButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="0"
+                android:background="@drawable/edge"
+                android:fontFamily="@font/dream5"
+                android:padding="15dp"
+                android:text="포인트 적립 내역"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:background="@drawable/edge2"
+                android:fontFamily="@font/dream5"
+                android:padding="15dp"
+                android:text="로그아웃"
+                android:layout_marginBottom="5dp"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/storeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:background="@drawable/edge2"
+                android:fontFamily="@font/dream5"
+                android:padding="15dp"
+                android:text="상품 구매 내역"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
@@ -309,7 +319,11 @@
             android:textColor="#5C684F"
             android:textSize="15dp"></TextView>
     </LinearLayout>
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
