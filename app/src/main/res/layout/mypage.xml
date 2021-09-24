@@ -332,5 +332,5 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         map:adSize="BANNER"
-        map:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+        map:adUnitId="ca-app-pub-5154428061719123/7769030105"></com.google.android.gms.ads.AdView>
 </LinearLayout>

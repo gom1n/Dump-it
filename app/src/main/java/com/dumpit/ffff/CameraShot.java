@@ -121,7 +121,7 @@ public class CameraShot extends Fragment {
         mAdview.loadAd(adRequest);
         AdView adView = new AdView(this.getContext());
         adView.setAdSize(AdSize.BANNER); //광고 사이즈는 배너 사이즈로 설정
-        adView.setAdUnitId("\n" + "ca-app-pub-3940256099942544/6300978111");
+        adView.setAdUnitId("\n" + "ca-app-pub-5154428061719123/7769030105");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
