@@ -8,4 +8,5 @@
 4) [덤프 마켓] 적립받은 포인트를 이용해 덤프마켓(Dump-Market)에서 기프티콘 구매
 5) [마이페이지] 포인트 적립 내역 및 구매 내역 확인
 - 작품 구성도
-![작품 구성도](https://user-images.githubusercontent.com/87636557/135409379-79623e37-f1e5-413b-a8e2-693722cde975.jpg)
+![작품 구성도](https://user-images.githubusercontent.com/87636557/135412731-5d84d56c-f8ce-4ca2-9012-6a75b0df05d4.jpg)
+
